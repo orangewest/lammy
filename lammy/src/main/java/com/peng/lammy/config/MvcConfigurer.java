@@ -1,7 +1,11 @@
 package com.peng.lammy.config;
 
+import org.springframework.boot.context.embedded.EmbeddedServletContainerCustomizer;
+import org.springframework.boot.web.servlet.ErrorPage;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.Ordered;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.servlet.config.annotation.PathMatchConfigurer;
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
@@ -18,5 +22,13 @@ public class MvcConfigurer extends WebMvcConfigurerAdapter {
 	public void configurePathMatch(PathMatchConfigurer configurer) {
 		super.configurePathMatch(configurer);
 		configurer.setUseSuffixPatternMatch(false);
+	}
+
+	@Bean
+	public EmbeddedServletContainerCustomizer containerCustomizer() {
+		return (container -> {
+			ErrorPage error404Page = new ErrorPage(HttpStatus.NOT_FOUND, "/lammy/404.html");
+			container.addErrorPages(error404Page);
+		});
 	}
 }

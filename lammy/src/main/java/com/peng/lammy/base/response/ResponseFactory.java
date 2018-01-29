@@ -42,19 +42,6 @@ public final class ResponseFactory {
 	}
 
 	/**
-	 * 服务调用失败响应
-	 * 
-	 * @param <T>
-	 * 
-	 * @param <T>
-	 * @param responseType
-	 * @return
-	 */
-	public static <T> Response<T> creatFailServerResponse() {
-		return new Response<T>().setResponseType(ExceptionType.SERVER_FAIL_EXCEPTION);
-	}
-
-	/**
 	 * 系统错误响应
 	 * 
 	 * @param <T>
