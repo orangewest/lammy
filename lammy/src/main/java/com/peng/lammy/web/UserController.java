@@ -1,15 +1,20 @@
 package com.peng.lammy.web;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.peng.lammy.domain.po.User;
+import com.peng.lammy.service.UserService;
 
 @RestController
 public class UserController {
 
-	@PostMapping("/checkUser")
-	public void checkUser(User user) {
+	@Autowired
+	private UserService userService;
 
+	@PostMapping("/checkUser")
+	public User checkUser(User user) {
+		return userService.getUser(user);
 	}
 }

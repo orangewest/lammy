@@ -39,9 +39,18 @@
               //监听提交
               form.on('submit(login)', function(data){
             	//ajax验证
+            	$.ajax({
+            		url : '/checkUser',
+            		method : 'post',
+            		data : data.field,
+            		success : function(result){
+            			alert(result);
+            			location.href='/lammy/index.html';
+            		}
+            	})
                 // alert(888)
                 //layer.msg(JSON.stringify(data.field),function(){
-                    location.href='/lammy/index.html'
+                    
                 //});
                 return false;
               });
