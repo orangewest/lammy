@@ -6,3 +6,8 @@ spring:
   h2:
     console:
       enabled: true
+
+lammy: 
+  interceptor: 
+    urls:
+      - /checkUser

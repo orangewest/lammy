@@ -29,21 +29,21 @@ public class GlobalExceptionHandler {
 	 * @return
 	 */
 	@ExceptionHandler(Exception.class)
-	public ResponseEntity<Response<?>> systermException(Exception e) {
-		log.error("系统出错了，原因是：" + e.getMessage(), e);
-		return new ResponseEntity<Response<?>>(ResponseFactory.creatErrorResponse(), HttpStatus.INTERNAL_SERVER_ERROR);
-	}
-
-	/**
-	 * 业务异常
-	 * 
-	 * @param e
-	 * @return
-	 */
-	@ExceptionHandler(BaseRuntimeException.class)
-	public Response<?> serviceException(BaseRuntimeException e) {
-		log.warn("业务异常:code==>{}，message==>{}", e.getCode(), e.getMessage());
-		return ResponseFactory.creatErrorResponse(e.getCode(), e.getMessage());
+	public ResponseEntity<?> systermException(Exception e) {
+		if (e instanceof BaseRuntimeException) {
+			log.warn("自定义业务异常，原因是：" + e.getMessage());
+			BaseRuntimeException baseRuntimeException = (BaseRuntimeException) e;
+			if (baseRuntimeException.getCode() == 403) {
+				return new ResponseEntity<String>(e.getMessage(), HttpStatus.FORBIDDEN);
+			} else {
+				return new ResponseEntity<Response<?>>(ResponseFactory.creatErrorResponse(
+						baseRuntimeException.getCode(), baseRuntimeException.getMessage()), HttpStatus.OK);
+			}
+		} else {
+			log.error("系统出错了，原因是：" + e.getMessage(), e);
+			return new ResponseEntity<String>(ResponseFactory.creatErrorResponse().getMessage(),
+					HttpStatus.INTERNAL_SERVER_ERROR);
+		}
 	}
 
 }

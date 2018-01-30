@@ -20,6 +20,7 @@ public class UserServiceImpl implements UserService {
 		if (user2 == null) {
 			throw new BaseRuntimeException("用户名或密码错误！");
 		}
+		user2.setUsername(user.getUsername());
 		return user2;
 	}
 

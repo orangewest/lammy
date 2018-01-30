@@ -1,5 +1,7 @@
 package com.peng.lammy.web;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -16,7 +18,9 @@ public class UserController {
 	private UserService userService;
 
 	@PostMapping("/checkUser")
-	public Response<User> checkUser(User user) {
-		return ResponseFactory.creatSuccessResponse(userService.getUser(user));
+	public Response<User> checkUser(User user, HttpSession session) {
+		User user2 = userService.getUser(user);
+		session.setAttribute("user", user2);
+		return ResponseFactory.creatSuccessResponse(user2);
 	}
 }

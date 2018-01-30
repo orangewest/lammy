@@ -39,25 +39,25 @@
               //监听提交
               form.on('submit(login)', function(data){
             	//ajax验证
-            	$.ajax({
-            		url : '/checkUser',
-            		method : 'post',
-            		data : data.field,
-            		success : function(result){
-            			alert(result.data);
-            			//location.href='/lammy/index.html';
-            		}
+            	$.axpost('/checkUser',data.field,function(result){
+            		if(result.code==0){
+            			layui.sessionData('user', {
+            				key: 'username',
+            				value: result.data.username
+            			});
+            			layui.sessionData('user', {
+            				key: 'userId',
+            				value: result.data.id
+            			});
+        			    location.href='/lammy/index.html';
+        			}else{
+        				layer.msg(result.message);
+        			}
             	})
-                // alert(888)
-                //layer.msg(JSON.stringify(data.field),function(){
-                    
-                //});
                 return false;
               });
             });
         })
-
-        
     </script>
 
 </body>

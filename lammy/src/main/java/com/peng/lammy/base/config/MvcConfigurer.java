@@ -1,4 +1,4 @@
-package com.peng.lammy.config;
+package com.peng.lammy.base.config;
 
 import org.springframework.boot.context.embedded.EmbeddedServletContainerCustomizer;
 import org.springframework.boot.web.servlet.ErrorPage;

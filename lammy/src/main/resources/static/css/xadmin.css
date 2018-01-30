@@ -467,3 +467,36 @@ table th, table td {
 	}
 }
 
+/* tips 404 */
+.my-page-box {
+    font-family: "Segoe UI", "Lucida Grande", Helvetica, Arial, "Microsoft YaHei", FreeSans, Arimo, "Droid Sans", "wenquanyi micro hei", "Hiragino Sans GB", "Hiragino Sans GB W3", FontAwesome, sans-serif;
+    text-align: center;
+    padding: 20px;
+    background-color: white;
+}
+
+.my-page-box i {
+    font-size: 100px;
+}
+
+.my-page-box h2, .my-page-box h3, .my-page-box h4, .my-page-box h5 {
+    font-size: 80px;
+}
+
+.my-page-box p.msg {
+    color: #dce2ec;
+    font-size: 20px;
+    margin-top: 20px;
+}
+
+.my-page-box p.text {
+    color: #666;
+    font-size: 16px;
+    margin-top: 20px;
+}
+
+.my-page-box .my-btn-box {
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+

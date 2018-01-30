@@ -11,6 +11,7 @@ public enum ExceptionType {
 	SUCCESS(0, "success"), // 成功
 	REQUEST_EXCEPTION(400, "请求头部错误"), //
 	PARAM_EXCEPTION(401, "请求参数错误"), //
+	FORBIDDEN(403, "没有权限"), //
 	SERVER_EXCEPTION(500, "服务器异常"), // 系统错误
 	FAIL(1000, "");// 业务失败（未定义失败code）
 
