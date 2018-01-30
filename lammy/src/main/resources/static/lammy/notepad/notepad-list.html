@@ -64,10 +64,12 @@
       </div>
       <xblock>
         <button class="layui-btn layui-btn-danger" onclick="delAll()"><i class="layui-icon"></i>批量删除</button>
-        <button class="layui-btn" onclick="x_admin_show('添加用户','./order-add.html')"><i class="layui-icon"></i>添加</button>
+        <button class="layui-btn" onclick="x_admin_show('添加任务','/lammy/notepad/notepad-add.html')"><i class="layui-icon"></i>添加</button>
         <span class="x-right" style="line-height:40px">共有数据：88 条</span>
       </xblock>
-      <table class="layui-table">
+      
+      <table class="layui-hide" id="notepad"></table>
+      <!-- <table class="layui-table">
         <thead>
           <tr>
             <th>
@@ -111,7 +113,7 @@
             </td>
           </tr>
         </tbody>
-      </table>
+      </table> -->
       <div class="page">
         <div>
           <a class="prev" href="">&lt;&lt;</a>
@@ -129,45 +131,38 @@
     <script type="text/javascript" src="/js/xadmin.js"></script>
     <script type="text/javascript" src="/js/session.js"></script>
     <script>
-      layui.use('laydate', function(){
+      layui.use(['laydate','table'], function(){
         var laydate = layui.laydate;
-        
+        var table = layui.table;
         //执行一个laydate实例
         laydate.render({
           elem: '#start' //指定元素
         });
-
         //执行一个laydate实例
         laydate.render({
           elem: '#end' //指定元素
         });
+        
+        table.render({
+            elem: '#notepad',
+            url:'/demo/table/user/',
+            cols: [[
+              {field:'id', width:80, title: 'ID', sort: true}
+              ,{field:'username', width:80, title: '用户名'}
+              ,{field:'sex', width:80, title: '性别', sort: true}
+              ,{field:'city', width:80, title: '城市'}
+              ,{field:'sign', title: '签名', minWidth: 150}
+              ,{field:'experience', width:80, title: '积分', sort: true}
+              ,{field:'score', width:80, title: '评分', sort: true}
+              ,{field:'classify', width:80, title: '职业'}
+              ,{field:'wealth', width:135, title: '财富', sort: true}
+            ]],
+            page: true
+          });
       });
 
-       /*用户-停用*/
-      function member_stop(obj,id){
-          layer.confirm('确认要停用吗？',function(index){
 
-              if($(obj).attr('title')=='启用'){
-
-                //发异步把用户状态进行更改
-                $(obj).attr('title','停用')
-                $(obj).find('i').html('&#xe62f;');
-
-                $(obj).parents("tr").find(".td-status").find('span').addClass('layui-btn-disabled').html('已停用');
-                layer.msg('已停用!',{icon: 5,time:1000});
-
-              }else{
-                $(obj).attr('title','启用')
-                $(obj).find('i').html('&#xe601;');
-
-                $(obj).parents("tr").find(".td-status").find('span').removeClass('layui-btn-disabled').html('已启用');
-                layer.msg('已启用!',{icon: 5,time:1000});
-              }
-              
-          });
-      }
-
-      /*用户-删除*/
+      /*删除*/
       function member_del(obj,id){
           layer.confirm('确认要删除吗？',function(index){
               //发异步删除数据
@@ -176,12 +171,8 @@
           });
       }
 
-
-
       function delAll (argument) {
-
         var data = tableCheck.getData();
-  
         layer.confirm('确认要删除吗？'+data,function(index){
             //捉到所有被选中的，发异步进行删除
             layer.msg('删除成功', {icon: 1});
