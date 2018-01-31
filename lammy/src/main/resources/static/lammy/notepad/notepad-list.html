@@ -116,11 +116,9 @@
       	//监听工具条
         table.on('tool(notepad)', function(obj){
           var data = obj.data;
-          if(obj.event === 'detail'){
-              layer.msg('ID：'+ data.id + ' 的查看操作');
-          } else if(obj.event === 'del'){
+          if(obj.event === 'del'){
               layer.confirm('真的删除么  ╮(︶﹏︶)╭', function(index){
-            	  $.axdelete('/notepad/'+obj.data.id,null,function(result){
+            	  $.axdelete('/notepad/'+data.id,null,function(result){
             		  if(result.code==0){
             			  obj.del();
         	              layer.msg('已删除!',{icon:1,time:1000});
@@ -131,7 +129,7 @@
             	  })
               });
           } else if(obj.event === 'edit'){
-              layer.alert('编辑行：<br>'+ JSON.stringify(data))
+        	  x_admin_show('记事本编辑','/lammy/notepad/notepad-edit.html?id='+data.id);
           }
         });
       	
