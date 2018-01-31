@@ -40,6 +40,14 @@ public class NotepadController {
 		return ResponseFactory.creatSuccessResponse(Boolean.TRUE);
 	}
 
+	@PostMapping("/batch")
+	public Response<Boolean> deleteBatch(Integer[] ids) {
+		for (Integer id : ids) {
+			notepadService.delete(id);
+		}
+		return ResponseFactory.creatSuccessResponse(Boolean.TRUE);
+	}
+
 	@PutMapping("/{id}")
 	public Response<Boolean> update(@PathVariable Integer id, Notepad notepad) {
 		notepadService.update(notepad);
@@ -49,6 +57,15 @@ public class NotepadController {
 	@GetMapping("/{id}")
 	public Response<Notepad> getById(@PathVariable Integer id) {
 		return ResponseFactory.creatSuccessResponse(notepadService.getNotepadById(id));
+	}
+
+	@PutMapping("/{id}/state/{state}")
+	public Response<Boolean> updateState(@PathVariable("id") Integer id, @PathVariable("state") Integer state) {
+		Notepad notepad = new Notepad();
+		notepad.setId(id);
+		notepad.setState(state);
+		notepadService.updateState(notepad);
+		return ResponseFactory.creatSuccessResponse(Boolean.TRUE);
 	}
 
 }

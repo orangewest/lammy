@@ -15,20 +15,20 @@ public interface NotepadDao {
 			+ "values(#{title},#{content},#{state},#{isRemind},#{remindTime},#{createdTime},#{updateTime},0)")
 	void insert(Notepad notepad);
 
-	@Select("select * from LAMMY_NOTEPAD where IS_DELETE = 0 and STATE = 0 order by UPDATE_TIME desc")
+	@Select("select * from LAMMY_NOTEPAD where IS_DELETE = 0 order by UPDATE_TIME desc")
 	List<Notepad> listNotepad();
 
 	@Update("update LAMMY_NOTEPAD set TITLE = #{title},CONTENT = #{content},IS_REMIND = #{isRemind},REMIND_TIME = #{remindTime},UPDATE_TIME = #{updateTime} "
 			+ "where ID = #{id}")
 	void update(Notepad notepad);
 
-	@Update("update LAMMY_NOTEPAD set STATE = #{state} where ID = #{id}")
-	void updateState(int state);
+	@Update("update LAMMY_NOTEPAD set STATE = #{state},COMPLETE_TIME = #{completeTime} where ID = #{id}")
+	void updateState(Notepad notepad);
 
 	@Delete("update LAMMY_NOTEPAD set IS_DELETE = 1 where ID = #{id}")
 	void delete(Integer id);
 
-	@Select("select * from LAMMY_NOTEPAD where where ID = #{id}")
+	@Select("select * from LAMMY_NOTEPAD where ID = #{id}")
 	Notepad getNotepadById(Integer id);
 
 }

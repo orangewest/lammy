@@ -63,7 +63,7 @@
         </form>
       </div>
       <xblock>
-        <button class="layui-btn layui-btn-danger" ><i class="layui-icon"></i>批量删除</button>
+        <button class="layui-btn layui-btn-danger" id="removeAll"><i class="layui-icon"></i>批量删除</button>
         <button class="layui-btn" onclick="x_admin_show('添加任务','/lammy/notepad/notepad-add.html')"><i class="layui-icon"></i>添加</button>
       </xblock>
       
@@ -84,7 +84,7 @@
     <script type="text/javascript" src="/js/xadmin.js"></script>
     <script type="text/javascript" src="/js/session.js"></script>
     <script type="text/html" id="state">
-		<input type="checkbox" name="state" value="{{d.state}}" lay-skin="switch" lay-text="是|否" lay-filter="state" {{ d.state == 1 ? 'checked' : '' }}>
+		<input type="checkbox" name="state" value="{{d.id}}" lay-skin="switch" lay-text="是|否" lay-filter="state" {{ d.state == 1 ? 'checked' : '' }}>
     </script>
     <script type="text/javascript">
       layui.use(['laydate','table'], function(){
@@ -104,10 +104,12 @@
             url:'/notepad',
             cols: [[
               {type:'checkbox'},
-              {field:'id',width:100,align:'center',title: 'ID'},
-              {field:'title',width:200,align:'center',title: '标题'},
+              {field:'id',width:80,align:'center',title: 'ID'},
+              {field:'title',width:100,align:'center',title: '标题'},
               {field:'content',minWidth:100,align:'center',title: '内容'},
               {field:'createdTime',width:150,align:'center',title: '创建时间',sort: true},
+              {field:'remindTime',width:150,align:'center',title: '设定完成时间',sort: true},
+              {field:'completeTime',width:150,align:'center',title: '完成时间',sort: true},
               {field:'state',width:100,align:'center',title: '是否完成',templet: '#state', unresize: true},
               {title: '操作',width:100, align:'center', toolbar: '#bar'}
             ]],
@@ -135,8 +137,38 @@
       	
       	//监听状态操作
         form.on('switch(state)', function(obj){
-          layer.tips(this.value + ' ' + this.name + '：'+ obj.elem.checked, obj.othis);
+          var state = obj.elem.checked == true ? 1 : 0;
+          alert(JSON.stringify(obj));
+          $.axput('/notepad/'+obj.value+'/state/'+state,null,function(result){
+        	  if(result.code==0){
+        	  }else{
+        		  layer.msg(result.msg)
+        	  }
+        	  location.reload();
+          })
         });
+      	
+      	$('#removeAll').on('click',function(){
+      		var checkStatus = table.checkStatus('notepad');
+            var data = checkStatus.data;
+            if(data.length>0){
+            	var ids = [];
+            	$.each(data,function(index,value){
+            	     ids.push(value.id);
+            	});
+            	layer.confirm('真的删除么  ╮(︶﹏︶)╭', function(index){
+                	  $.axpost('/notepad/batch',{'ids':ids.join(',')},function(result){
+                		  if(result.code==0){
+            	              layer.msg('已删除!',{icon:1,time:1000});
+                		  }else{
+                			  layer.msg(result.msg)
+                		  }
+                		  layer.close(index);
+                		  location.reload();
+                	  })
+                  });
+            }
+      	})
         
       });
     </script>

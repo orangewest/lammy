@@ -38,12 +38,21 @@ public class NotepadServiceImpl implements NotepadService {
 
 	@Override
 	public void update(Notepad notepad) {
+		notepad.setUpdateTime(DateUtil.now());
 		notepadDao.update(notepad);
 	}
 
 	@Override
 	public Notepad getNotepadById(Integer id) {
 		return notepadDao.getNotepadById(id);
+	}
+
+	@Override
+	public void updateState(Notepad notepad) {
+		if (notepad.getState() == 1) {
+			notepad.setCompleteTime(DateUtil.now());
+		}
+		notepadDao.updateState(notepad);
 	}
 
 }

@@ -48,4 +48,6 @@ public interface NotepadService {
 	 * @return
 	 */
 	Notepad getNotepadById(Integer id);
+
+	void updateState(Notepad notepad);
 }

@@ -6,7 +6,7 @@
     <title>欢迎页面-X-admin2.0</title>
     <meta name="renderer" content="webkit">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <meta name="viewport" content="width=device-width,user-scalable=yes, minimum-scale=0.4, initial-scale=0.8,target-densitydpi=low-dpi" />
+    <meta name="viewport" content="width=device-width,user-scalable=yes, minimum-scale=0.4, initial-scale=0.8" />
     <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
     <link rel="stylesheet" href="/css/font.css">
     <link rel="stylesheet" href="/css/xadmin.css">
@@ -28,13 +28,13 @@
                 </div>
                 <div class="layui-form-item">
                 	<div class="layui-inline">
-					    <label class="layui-form-label">是否提醒</label>
+					    <label class="layui-form-label">设置完成时间</label>
 					    <div class="layui-input-inline">
 					      <input id="isRemind" type="checkbox" checked name="isRemind" lay-skin="switch" lay-filter="isRemind" title="开关" lay-text="是|否" value='1'>
 					    </div>
 				    </div>
 				    <div class="layui-inline" id = 'remindTimeDiv'>
-				      <label class="layui-form-label">提醒时间</label>
+				      <label class="layui-form-label">完成时间</label>
 				      <div class="layui-input-inline">
 				        <input type="text" name="remindTime" id="remindTime" autocomplete="off" class="layui-input" readonly="" placeholder="yyyy-MM-dd" lay-verify="remindTime">
 				      </div>
