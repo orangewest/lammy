@@ -23,27 +23,27 @@
                 <div class="layui-form-item">
                     <label for="name" class="layui-form-label">标题</label>
                     <div class="layui-input-block">
-      					<input type="text" name="title" autocomplete="off" placeholder="请输入标题" class="layui-input">
+      					<input type="text" name="title" autocomplete="off" placeholder="请输入标题" class="layui-input" lay-verify="required">
     				</div>
                 </div>
                 <div class="layui-form-item">
                 	<div class="layui-inline">
 					    <label class="layui-form-label">是否提醒</label>
 					    <div class="layui-input-inline">
-					      <input type="checkbox" checked name="isRemind" lay-skin="switch" lay-filter="switchTest" title="开关" lay-text="是|否" value='1'>
+					      <input id="isRemind" type="checkbox" checked name="isRemind" lay-skin="switch" lay-filter="isRemind" title="开关" lay-text="是|否" value='1'>
 					    </div>
 				    </div>
-				    <div class="layui-inline">
+				    <div class="layui-inline" id = 'remindTimeDiv'>
 				      <label class="layui-form-label">提醒时间</label>
 				      <div class="layui-input-inline">
-				        <input type="text" name="remindTime" id="remindTime" autocomplete="off" class="layui-input">
+				        <input type="text" name="remindTime" id="remindTime" autocomplete="off" class="layui-input" readonly="" placeholder="yyyy-MM-dd" lay-verify="remindTime">
 				      </div>
     				</div>
   				</div>
                 <div class="layui-form-item layui-form-text">
                     <label for="desc" class="layui-form-label">内容</label>
                     <div class="layui-input-block">
-                        <textarea placeholder="请输入内容" id="content" name="content" class="layui-textarea"></textarea>
+                        <textarea placeholder="请输入内容" id="content" name="content" class="layui-textarea" lay-verify="required"></textarea>
                     </div>
                 </div>
                 <div class="layui-form-item">
@@ -57,25 +57,53 @@
     <script type="text/javascript" src="/js/session.js"></script>
     <script>
         layui.use(['form','layer','laydate'], function(){
-            $ = layui.jquery;
           var form = layui.form;
           var layer = layui.layer;
           var laydate = layui.laydate;
           
           laydate.render({
-        	    elem: '#remindTime' //指定元素
+        	    elem: '#remindTime', //指定元素
+        	    min: 0,
+        	    trigger: 'click'
           });
+          
+          //监听是否提醒按钮
+          form.on('switch(isRemind)',function(data){
+          	if(this.checked==true){
+          		$('#remindTimeDiv').show();
+          		$('#isRemind').val('1');
+          	}else{
+          		$('#remindTimeDiv').hide();
+          		$('#isRemind').val('0');
+          	}
+          })
+          //提醒时间非空验证
+          form.verify({
+        	  remindTime : function(value, item){
+        		  if($('#isRemind').val()=='1'){
+        			  if(value==''){
+        				  return '提醒时间不能为空';
+        			  }
+        		  }
+        	  }
+          })
         
           //监听提交
           form.on('submit(add)', function(data){
             console.log(JSON.stringify(data.field));
-            //发异步，把数据提交给php
-            layer.alert("增加成功", {icon: 6},function () {
-                // 获得frame索引
-                var index = parent.layer.getFrameIndex(window.name);
-                //关闭当前frame
-                parent.layer.close(index);
-            });
+            $.axpost('/notepad',data.field,function(result){
+            	if(result.code==0){
+            		layer.alert("增加成功", {icon: 6},function () {
+            			window.parent.location.reload();
+            			// 获得frame索引
+                        var index = parent.layer.getFrameIndex(window.name);
+                        //关闭当前frame
+                        parent.layer.close(index);
+                    });
+            	}else{
+            		layer.msg(result.msg);
+            	}
+        	})
             return false;
           });
           

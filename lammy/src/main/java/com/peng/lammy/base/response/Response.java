@@ -14,8 +14,9 @@ public class Response<T> implements Serializable {
 	 */
 	private static final long serialVersionUID = 1L;
 	private int code;
-	private String message;
+	private String msg;
 	private T data;// 响应数据
+	private long count;// 总条数
 
 	public int getCode() {
 		return code;
@@ -23,15 +24,6 @@ public class Response<T> implements Serializable {
 
 	public Response<T> setCode(int code) {
 		this.code = code;
-		return this;
-	}
-
-	public String getMessage() {
-		return message;
-	}
-
-	public Response<T> setMessage(String message) {
-		this.message = message;
 		return this;
 	}
 
@@ -44,6 +36,24 @@ public class Response<T> implements Serializable {
 		return this;
 	}
 
+	public String getMsg() {
+		return msg;
+	}
+
+	public Response<T> setMsg(String msg) {
+		this.msg = msg;
+		return this;
+	}
+
+	public long getCount() {
+		return count;
+	}
+
+	public Response<T> setCount(long count) {
+		this.count = count;
+		return this;
+	}
+
 	/**
 	 * 设置响应类型
 	 * 
@@ -52,7 +62,7 @@ public class Response<T> implements Serializable {
 	 */
 	public Response<T> setResponseType(ExceptionType exceptionType) {
 		this.code = exceptionType.getCode();
-		this.message = exceptionType.getMessage();
+		this.msg = exceptionType.getMessage();
 		return this;
 	}
 }

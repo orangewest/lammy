@@ -12,6 +12,9 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
+import com.github.pagehelper.Page;
+import com.peng.lammy.base.response.Response;
+
 import lombok.extern.slf4j.Slf4j;
 
 @Component
@@ -37,8 +40,11 @@ public class ControllerAop {
 		log.info("HTTP_METHOD : " + request.getMethod());
 		log.info("CLASS_METHOD : " + pjp.getSignature().getDeclaringTypeName() + "." + pjp.getSignature().getName());
 		log.info("ARGS : " + Arrays.toString(pjp.getArgs()));
-		Object result;
-		result = pjp.proceed();
+		Response<?> result = (Response<?>) pjp.proceed();
+		Object data = result.getData();
+		if (data instanceof Page) {
+			result.setCount(((Page<?>) data).getTotal());
+		}
 		log.info(pjp.getSignature() + " use time:" + (System.currentTimeMillis() - startTime) + "ms");
 		return result;
 	}

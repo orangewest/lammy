@@ -41,7 +41,7 @@ public class GlobalExceptionHandler {
 			}
 		} else {
 			log.error("系统出错了，原因是：" + e.getMessage(), e);
-			return new ResponseEntity<String>(ResponseFactory.creatErrorResponse().getMessage(),
+			return new ResponseEntity<String>(ResponseFactory.creatErrorResponse().getMsg(),
 					HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}

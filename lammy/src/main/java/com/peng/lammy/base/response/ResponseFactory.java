@@ -51,7 +51,7 @@ public final class ResponseFactory {
 	 * @return
 	 */
 	public static <T> Response<T> creatErrorResponse(int code, String message) {
-		return new Response<T>().setCode(code).setMessage(message);
+		return new Response<T>().setCode(code).setMsg(message);
 	}
 
 	/**

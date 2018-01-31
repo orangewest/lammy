@@ -126,15 +126,9 @@ $(function () {
          
     })
     
-    /**
-     * ajax封装
-     * url 发送请求的地址
-     * data 发送到服务器的数据，数组存储，如：{"date": new Date().getTime(), "state": 1}
-     * successfn 成功回调函数
-     */
-    jQuery.axpost=function(url, data, successfn) {
-        $.ajax({
-            type: "post",
+    function sendAjax(url,type, data, successfn){
+    	$.ajax({
+            type: type,
             data: data,
             url: url,
             success: function(d){
@@ -148,7 +142,17 @@ $(function () {
     			}
         	}
         });
-    };
+    }
+    
+    /**
+     * ajax封装
+     * url 发送请求的地址
+     * data 发送到服务器的数据，数组存储，如：{"date": new Date().getTime(), "state": 1}
+     * successfn 成功回调函数
+     */
+    jQuery.axpost=function(url, data, successfn) {
+    	sendAjax(url,'post',data, successfn);
+    }
     
     /**
      * ajax封装
@@ -157,21 +161,16 @@ $(function () {
      * successfn 成功回调函数
      */
     jQuery.axget=function(url, data, successfn) {
-        $.ajax({
-            data: data,
-            url: url,
-            success: function(d){
-            	successfn(d);
-            },
-        	error : function(XMLHttpRequest, textStatus, errorThrown){
-    			if(XMLHttpRequest.status==403){
-    				location.href='/lammy/login.html';
-    			}else{
-    				layer.msg(XMLHttpRequest.responseText);
-    			}
-        	}
-        });
-    };
+    	sendAjax(url,'get',data, successfn);
+    }
+    
+    jQuery.axput=function(url, data, successfn) {
+    	sendAjax(url,'put',data, successfn);
+    }
+    
+    jQuery.axdelete=function(url, data, successfn) {
+    	sendAjax(url,'delete',data, successfn);
+    }
     
 })
 
