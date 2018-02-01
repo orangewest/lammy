@@ -30,42 +30,23 @@
     <div class="x-body">
       <div class="layui-row">
         <form class="layui-form layui-col-md12 x-so">
-          <input class="layui-input" placeholder="开始日" name="start" id="start">
-          <input class="layui-input" placeholder="截止日" name="end" id="end">
           <div class="layui-input-inline">
-            <select name="contrller">
-              <option>支付状态</option>
-              <option>已支付</option>
-              <option>未支付</option>
-            </select>
+          	<input type="text" name="title"  placeholder="请输入标题" autocomplete="off" class="layui-input">
           </div>
           <div class="layui-input-inline">
-            <select name="contrller">
-              <option>支付方式</option>
-              <option>支付宝</option>
-              <option>微信</option>
-              <option>货到付款</option>
+            <select name="state">
+              <option value="">完成状态</option>
+              <option value="0">未完成</option>
+              <option value="1">已完成</option>
             </select>
           </div>
-          <div class="layui-input-inline">
-            <select name="contrller">
-              <option value="">订单状态</option>
-              <option value="0">待确认</option>
-              <option value="1">已确认</option>
-              <option value="2">已收货</option>
-              <option value="3">已取消</option>
-              <option value="4">已完成</option>
-              <option value="5">已作废</option>
-            </select>
-          </div>
-          <input type="text" name="username"  placeholder="请输入订单号" autocomplete="off" class="layui-input">
-          <button class="layui-btn"  lay-submit="" lay-filter="sreach"><i class="layui-icon">&#xe615;</i></button>
+          <button class="layui-btn"  lay-submit="search" lay-filter="search"><i class="layui-icon">&#xe615;</i></button>
         </form>
       </div>
-      <xblock>
+      <div class="xblock">
         <button class="layui-btn layui-btn-danger" id="removeAll"><i class="layui-icon"></i>批量删除</button>
         <button class="layui-btn" onclick="x_admin_show('添加任务','/lammy/notepad/notepad-add.html')"><i class="layui-icon"></i>添加</button>
-      </xblock>
+      </div>
       
       <table class="layui-hide" id="notepad" lay-filter="notepad"></table>
       
@@ -87,34 +68,11 @@
 		<input type="checkbox" name="state" value="{{d.id}}" lay-skin="switch" lay-text="是|否" lay-filter="state" {{ d.state == 1 ? 'checked' : '' }}>
     </script>
     <script type="text/javascript">
-      layui.use(['laydate','table'], function(){
+      layui.use(['laydate','table','form'], function(){
         var laydate = layui.laydate;
-        var table = layui.table,form = layui.form;
-        //执行一个laydate实例
-        laydate.render({
-          elem: '#start' //指定元素
-        });
-        //执行一个laydate实例
-        laydate.render({
-          elem: '#end' //指定元素
-        });
-        
-        table.render({
-            elem: '#notepad',
-            url:'/notepad',
-            cols: [[
-              {type:'checkbox'},
-              {field:'id',width:80,align:'center',title: 'ID'},
-              {field:'title',width:100,align:'center',title: '标题'},
-              {field:'content',minWidth:100,align:'center',title: '内容'},
-              {field:'createdTime',width:150,align:'center',title: '创建时间',sort: true},
-              {field:'remindTime',width:150,align:'center',title: '设定完成时间',sort: true},
-              {field:'completeTime',width:150,align:'center',title: '完成时间',sort: true},
-              {field:'state',width:100,align:'center',title: '是否完成',templet: '#state', unresize: true},
-              {title: '操作',width:100, align:'center', toolbar: '#bar'}
-            ]],
-            page: true
-          });
+        var table = layui.table;
+        var form = layui.form;
+        initTable(table,'/notepad');
       	//监听工具条
         table.on('tool(notepad)', function(obj){
           var data = obj.data;
@@ -138,7 +96,6 @@
       	//监听状态操作
         form.on('switch(state)', function(obj){
           var state = obj.elem.checked == true ? 1 : 0;
-          alert(JSON.stringify(obj));
           $.axput('/notepad/'+obj.value+'/state/'+state,null,function(result){
         	  if(result.code==0){
         	  }else{
@@ -146,6 +103,12 @@
         	  }
         	  location.reload();
           })
+        });
+      	
+      	//监听搜索
+        form.on('submit(search)', function(data){
+        	initTable(table,'/notepad',data.field);
+        	return false; //阻止表单跳转。如果需要表单跳转，去掉这段即可。
         });
       	
       	$('#removeAll').on('click',function(){
@@ -169,6 +132,26 @@
                   });
             }
       	})
+      	
+      	function initTable(table,url,where){
+      		table.render({
+                elem: '#notepad',
+                url: url,
+                where : where,
+                cols: [[
+                  {type:'checkbox'},
+                  {field:'id',width:80,align:'center',title: 'ID'},
+                  {field:'title',width:100,align:'center',title: '标题'},
+                  {field:'content',minWidth:100,align:'center',title: '内容'},
+                  {field:'createdTime',width:150,align:'center',title: '创建时间',sort: true},
+                  {field:'remindTime',width:150,align:'center',title: '设定完成时间',sort: true},
+                  {field:'completeTime',width:150,align:'center',title: '完成时间',sort: true},
+                  {field:'state',width:100,align:'center',title: '是否完成',templet: '#state', unresize: true},
+                  {title: '操作',width:100, align:'center', toolbar: '#bar'}
+                ]],
+                page: true
+             });
+      	}
         
       });
     </script>

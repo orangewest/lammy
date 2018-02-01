@@ -11,12 +11,11 @@ import com.peng.lammy.domain.po.Notepad;
 
 public interface NotepadDao {
 
-	@Insert("insert into LAMMY_NOTEPAD(TITLE,CONTENT,STATE,IS_REMIND,REMIND_TIME,CREATED_TIME,UPDATE_TIME,IS_DELETE) "
-			+ "values(#{title},#{content},#{state},#{isRemind},#{remindTime},#{createdTime},#{updateTime},0)")
+	@Insert("insert into LAMMY_NOTEPAD(USER_ID,TITLE,CONTENT,STATE,IS_REMIND,REMIND_TIME,CREATED_TIME,UPDATE_TIME,IS_DELETE) "
+			+ "values(#{userId},#{title},#{content},0,#{isRemind},#{remindTime},#{createdTime},#{updateTime},0)")
 	void insert(Notepad notepad);
 
-	@Select("select * from LAMMY_NOTEPAD where IS_DELETE = 0 order by UPDATE_TIME desc")
-	List<Notepad> listNotepad();
+	List<Notepad> listNotepad(Notepad notepad);
 
 	@Update("update LAMMY_NOTEPAD set TITLE = #{title},CONTENT = #{content},IS_REMIND = #{isRemind},REMIND_TIME = #{remindTime},UPDATE_TIME = #{updateTime} "
 			+ "where ID = #{id}")

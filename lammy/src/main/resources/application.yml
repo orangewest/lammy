@@ -36,7 +36,9 @@ lammy:
 mybatis:
   configuration:
     map-underscore-to-camel-case: true
-#  mapper-locations:
-#  - classpath:mapper/*.xml
+  mapper-locations:
+    - classpath:mapper/*.xml
   type-aliases-package: com.peng.lammy.domain.po
+
+logging.level.com.peng.lammy.dao: debug
   

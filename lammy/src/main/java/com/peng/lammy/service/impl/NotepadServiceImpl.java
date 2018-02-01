@@ -7,9 +7,12 @@ import org.springframework.stereotype.Service;
 
 import com.github.pagehelper.PageHelper;
 import com.peng.lammy.dao.NotepadDao;
+import com.peng.lammy.domain.dto.NotepadDTO;
 import com.peng.lammy.domain.po.Notepad;
 import com.peng.lammy.service.NotepadService;
+import com.peng.lammy.util.UserUtils;
 import com.xiaoleilu.hutool.date.DateUtil;
+import com.xiaoleilu.hutool.util.StrUtil;
 
 @Service
 public class NotepadServiceImpl implements NotepadService {
@@ -21,13 +24,20 @@ public class NotepadServiceImpl implements NotepadService {
 	public void insert(Notepad notepad) {
 		notepad.setCreatedTime(DateUtil.now());
 		notepad.setUpdateTime(DateUtil.now());
+		notepad.setUserId(UserUtils.getUser().getId());
 		notepadDao.insert(notepad);
 	}
 
 	@Override
-	public List<Notepad> listNotepad(Integer page, Integer limit) {
-		PageHelper.startPage(page, limit);
-		List<Notepad> listNotepad = notepadDao.listNotepad();
+	public List<Notepad> listNotepad(NotepadDTO notepadDto) {
+		PageHelper.startPage(notepadDto.getPage(), notepadDto.getLimit());
+		Notepad notepad = new Notepad();
+		notepad.setUserId(UserUtils.getUser().getId());
+		if (StrUtil.isNotBlank(notepadDto.getTitle())) {
+			notepad.setTitle("%" + notepadDto.getTitle() + "%");
+		}
+		notepad.setState(notepadDto.getState());
+		List<Notepad> listNotepad = notepadDao.listNotepad(notepad);
 		return listNotepad;
 	}
 

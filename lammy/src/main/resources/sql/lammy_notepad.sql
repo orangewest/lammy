@@ -21,6 +21,7 @@ SET FOREIGN_KEY_CHECKS=0;
 DROP TABLE IF EXISTS `lammy_notepad`;
 CREATE TABLE `lammy_notepad` (
   `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '主键',
+  `user_id` int(11) COMMENT '用户id',
   `title` varchar(255) DEFAULT NULL COMMENT '标题',
   `content` varchar(255) DEFAULT NULL COMMENT '内容',
   `state` varchar(255) DEFAULT NULL COMMENT '当前状态（0：未完成1:已完成）',

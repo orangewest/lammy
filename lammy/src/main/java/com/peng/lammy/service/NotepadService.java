@@ -2,6 +2,7 @@ package com.peng.lammy.service;
 
 import java.util.List;
 
+import com.peng.lammy.domain.dto.NotepadDTO;
 import com.peng.lammy.domain.po.Notepad;
 
 /**
@@ -25,7 +26,7 @@ public interface NotepadService {
 	 * @param limit
 	 * @return
 	 */
-	List<Notepad> listNotepad(Integer page, Integer limit);
+	List<Notepad> listNotepad(NotepadDTO notepadDto);
 
 	/**
 	 * 删除

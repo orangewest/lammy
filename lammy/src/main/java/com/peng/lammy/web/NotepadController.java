@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.peng.lammy.base.response.Response;
 import com.peng.lammy.base.response.ResponseFactory;
+import com.peng.lammy.domain.dto.NotepadDTO;
 import com.peng.lammy.domain.po.Notepad;
 import com.peng.lammy.service.NotepadService;
 
@@ -30,8 +31,8 @@ public class NotepadController {
 	}
 
 	@GetMapping
-	public Response<List<Notepad>> listNotepad(Integer page, Integer limit) {
-		return ResponseFactory.creatSuccessResponse(notepadService.listNotepad(page, limit));
+	public Response<List<Notepad>> listNotepad(NotepadDTO notepadDto) {
+		return ResponseFactory.creatSuccessResponse(notepadService.listNotepad(notepadDto));
 	}
 
 	@DeleteMapping("/{id}")

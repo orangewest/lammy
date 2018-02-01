@@ -131,7 +131,7 @@ body{
     height: 39px;
     overflow: hidden;
 }
-xblock{
+.xblock{
     display: block;
     margin-bottom: 10px;
     padding: 5px;
