@@ -23,7 +23,7 @@ public class UserInterceptor implements HandlerInterceptor {
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
 			throws Exception {
 		for (String url : filterUrlsPropertiesConifg.getUrls()) {
-			if (url.contains(request.getRequestURI())) {
+			if (request.getRequestURI().contains(url)) {
 				return true;
 			}
 		}
@@ -37,7 +37,6 @@ public class UserInterceptor implements HandlerInterceptor {
 	@Override
 	public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler,
 			ModelAndView modelAndView) throws Exception {
-		// TODO Auto-generated method stub
 
 	}
 
