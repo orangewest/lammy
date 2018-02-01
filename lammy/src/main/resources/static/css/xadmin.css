@@ -164,6 +164,10 @@ body{
 	text-align: center;
 
 }
+.x-btn{
+	position: relative;
+    left: 329px;
+}
 .page a{
 	display: inline-block;
 	background: #fff url() 0 0 no-repeat;

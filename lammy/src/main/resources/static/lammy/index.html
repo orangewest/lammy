@@ -22,9 +22,8 @@
             <i title="展开左侧栏" class="iconfont">&#xe699;</i>
         </div>
         <ul class="layui-nav right" lay-filter="">
-          <li class="layui-nav-item">
-            <a  id='username'></a>
-          </li>
+          <li class="layui-nav-item"><a  id='username'></a></li>
+          <li class="layui-nav-item"><a href="javascript:;" onclick="x_admin_show('修改密码','/lammy/user/user-reset.html',450,300)">修改密码</a></li>
           <li class="layui-nav-item"><a href="javascript:;" id='logout'>退出</a></li>
         </ul>
     </div>
@@ -98,7 +97,7 @@
                     <li>
                         <a _href="order-list.html">
                             <i class="iconfont">&#xe6a7;</i>
-                            <cite>姨妈助手</cite>
+                            <cite>收支管理</cite>
                         </a>
                     </li >
                 </ul>
@@ -140,17 +139,18 @@
     <script type="text/javascript" src="/js/xadmin.js"></script>
     <script type="text/javascript" src="/js/session.js"></script>
     <script type="text/javascript">
-    	$('#username').text(layui.sessionData('user').username);
+    	$('#username').text('欢迎你：'+layui.sessionData('user').username);
     	
     	//退出登录
     	$('#logout').on('click',function(){
-    		$.axget('/logout',null,function(result){
+    		$.axget('/user/logout',null,function(result){
         		if(result.code==0){
         			layui.sessionData('user', null);
     			    location.href='/lammy/login.html';
     			}
         	})
     	})
+
     </script>
 </body>
 </html>

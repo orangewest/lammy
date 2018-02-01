@@ -39,7 +39,7 @@
               //监听提交
               form.on('submit(login)', function(data){
             	//ajax验证
-            	$.axpost('/checkUser',data.field,function(result){
+            	$.axpost('/user/checkUser',data.field,function(result){
             		if(result.code==0){
             			layui.sessionData('user', {
             				key: 'username',

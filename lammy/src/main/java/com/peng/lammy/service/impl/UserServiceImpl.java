@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 
 import com.peng.lammy.base.exception.BaseRuntimeException;
 import com.peng.lammy.dao.UserDao;
+import com.peng.lammy.domain.dto.UserDTO;
 import com.peng.lammy.domain.po.User;
 import com.peng.lammy.service.UserService;
 
@@ -22,6 +23,16 @@ public class UserServiceImpl implements UserService {
 		}
 		user2.setUsername(user.getUsername());
 		return user2;
+	}
+
+	@Override
+	public void updatePassword(UserDTO userDTO) {
+		User user = userDao.getUserById(userDTO.getId());
+		if (!user.getPassword().equals(userDTO.getPassword())) {
+			throw new BaseRuntimeException("密码输入错误！");
+		}
+		user.setPassword(userDTO.getRPassword());
+		userDao.updatePassword(user);
 	}
 
 }
