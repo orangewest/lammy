@@ -508,3 +508,7 @@ table th, table td {
 .td-manage {
 	display: none;
 }
+.x-sub {
+	font-size: 9px;
+	vertical-align: sub;
+}

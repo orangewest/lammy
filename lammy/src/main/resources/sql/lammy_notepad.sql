@@ -56,3 +56,40 @@ CREATE TABLE `user` (
 -- Records of user
 -- ----------------------------
 INSERT INTO `user` VALUES ('10', 'admin', 'admin', '2018-01-29 16:10:44', '2018-01-29 16:10:44', '0');
+
+-- ----------------------------
+-- Table structure for lammy_gauging
+-- ----------------------------
+DROP TABLE IF EXISTS `lammy_gauging`;
+CREATE TABLE `lammy_gauging` (
+  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '主键',
+  `send_person` varchar(255) DEFAULT NULL COMMENT '送样人',
+  `sample_name` varchar(255) DEFAULT NULL,
+  `gauging_no` varchar(255) DEFAULT NULL,
+  `gauging_date` varchar(255) DEFAULT NULL,
+  `remark` varchar(255) DEFAULT NULL,
+  `SiO2` varchar(255) DEFAULT NULL,
+  `Fe2O3` varchar(255) DEFAULT NULL,
+  `Al2O3` varchar(255) DEFAULT NULL,
+  `CaO` varchar(255) DEFAULT NULL,
+  `MgO` varchar(255) DEFAULT NULL,
+  `Cd` varchar(255) DEFAULT NULL,
+  `Pb` varchar(255) DEFAULT NULL,
+  `H2O` varchar(255) DEFAULT NULL,
+  `XRD` varchar(255) DEFAULT NULL,
+  `SSA` varchar(255) DEFAULT NULL,
+  `pH` varchar(255) DEFAULT NULL,
+  `minus_Twoμm` varchar(255) DEFAULT NULL COMMENT '-2μm',
+  `whiteness` varchar(255) DEFAULT NULL COMMENT '白度',
+  `IL` varchar(255) DEFAULT NULL,
+  `suspensibility` varchar(255) DEFAULT NULL COMMENT '悬浮度/mL',
+  `adsorbed` varchar(255) DEFAULT NULL COMMENT '胶质价ml/15g',
+  `bentonites` varchar(255) DEFAULT NULL COMMENT '膨胀容ml/g',
+  `viscosity` varchar(255) DEFAULT NULL COMMENT '粘度',
+  `methylene_blue` varchar(255) DEFAULT NULL COMMENT '吸蓝量',
+  `oil_absorption` varchar(255) DEFAULT NULL COMMENT '吸油量g/100g',
+  `created_time` varchar(255) DEFAULT NULL COMMENT '创建时间',
+  `update_time` varchar(255) DEFAULT NULL COMMENT '更新时间',
+  `is_delete` bigint(4) DEFAULT NULL COMMENT '删除标志（0:未删除1：已删除）',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;

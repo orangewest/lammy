@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.peng.lammy.dao.work.GaugingDao">
+
+	<!-- 新增 -->
+	<insert id="insert" parameterType="com.peng.lammy.domain.po.work.Gauging">
+INSERT INTO LAMMY_GAUGING(SEND_PERSON,SAMPLE_NAME,GAUGING_NO,GAUGING_DATE,REMARK,SIO2,FE2O3,AL2O3,CAO,MGO,CD,PB,H2O,XRD,SSA,PH,MINUS_TWOΜM,WHITENESS,IL,SUSPENSIBILITY,ADSORBED,BENTONITES,VISCOSITY,METHYLENE_BLUE,OIL_ABSORPTION,CREATED_TIME,UPDATE_TIME,IS_DELETE)
+values(#{sendPerson},#{sampleName},#{gaugingNo},#{gaugingDate},#{remark},#{SiO2},#{Fe2O3},#{Al2O3},#{CaO},#{MgO},#{Cd},#{Pb},#{H2O},#{XRD},#{SSA},#{pH},#{minusTwoμm},#{whiteness},#{IL},#{suspensibility},#{adsorbed},#{bentonites},#{viscosity},#{methyleneBlue},#{oilAbsorption},#{createdTime},#{updateTime},0)
+	</insert>
+	
+	<!-- 根据编号查询是否有相同编号 -->
+	<select id="countGaugingByNo" resultType="int">
+SELECT COUNT(*) FROM LAMMY_GAUGING WHERE GAUGING_NO = #{gaugingNo}
+	</select>
+	
+	<!-- 查询最近一条编号 -->
+	<select id="getGaugingNoOrderByDate" resultType="java.lang.String">
+SELECT GAUGING_NO FROM LAMMY_GAUGING ORDER BY CREATED_TIME DESC LIMIT 1	
+	</select>
+</mapper>
