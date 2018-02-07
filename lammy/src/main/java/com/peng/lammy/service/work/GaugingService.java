@@ -1,5 +1,8 @@
 package com.peng.lammy.service.work;
 
+import java.util.List;
+
+import com.peng.lammy.domain.dto.work.GaugingDTO;
 import com.peng.lammy.domain.po.work.Gauging;
 
 /**
@@ -30,5 +33,28 @@ public interface GaugingService {
 	 * @return
 	 */
 	String sysProductNo();
+
+	/**
+	 * 条件查询列表
+	 * 
+	 * @param gaugingDTO
+	 * @return
+	 */
+	List<Gauging> listGauging(GaugingDTO gaugingDTO);
+
+	/**
+	 * 根据id查询
+	 * 
+	 * @param id
+	 * @return
+	 */
+	Gauging getGaugingById(Integer id);
+
+	/**
+	 * 更新
+	 * 
+	 * @param gauging
+	 */
+	Gauging update(Gauging gauging);
 
 }

@@ -17,4 +17,20 @@ SELECT COUNT(*) FROM LAMMY_GAUGING WHERE GAUGING_NO = #{gaugingNo}
 	<select id="getGaugingNoOrderByDate" resultType="java.lang.String">
 SELECT GAUGING_NO FROM LAMMY_GAUGING ORDER BY CREATED_TIME DESC LIMIT 1	
 	</select>
+	
+	<!-- 查询检测列表 -->
+	<select id="listGauging" resultType="com.peng.lammy.domain.po.work.Gauging">
+SELECT * FROM LAMMY_GAUGING WHERE IS_DELETE = 0 ORDER BY GAUGING_DATE DESC
+	</select>
+	
+	<!-- 根据id查询 -->
+	<select id="getGaugingById" resultType="com.peng.lammy.domain.po.work.Gauging">
+SELECT * FROM LAMMY_GAUGING WHERE ID = #{id} LIMIT 1	
+	</select>
+	
+	<!-- 更新 -->
+	<update id="update" parameterType="com.peng.lammy.domain.po.work.Gauging">
+UPDATE LAMMY_GAUGING SET SEND_PERSON = #{sendPerson},SAMPLE_NAME = #{sampleName},GAUGING_NO = #{gaugingNo},GAUGING_DATE = #{gaugingDate},REMARK = #{remark},SIO2 = #{SiO2},FE2O3 = #{Fe2O3},AL2O3 = #{Al2O3},CAO = #{CaO},MGO = #{MgO},CD = #{Cd},PB = #{Pb},H2O = #{H2O},XRD = #{XRD},SSA = #{SSA},PH = #{pH},MINUS_TWOΜM = #{minusTwoμm},WHITENESS = #{whiteness},IL = #{IL},SUSPENSIBILITY = #{suspensibility},ADSORBED = #{adsorbed},BENTONITES = #{bentonites},VISCOSITY = #{viscosity},METHYLENE_BLUE = #{methyleneBlue},OIL_ABSORPTION = #{oilAbsorption},UPDATE_TIME = #{updateTime}
+WHERE ID = #{id}	
+	</update>
 </mapper>

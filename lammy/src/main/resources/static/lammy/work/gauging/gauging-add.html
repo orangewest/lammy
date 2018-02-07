@@ -249,9 +249,9 @@
           })
           
           
-          //系统生成
+          //系统编号生成
           form.on('checkbox(sysProduct)', function(data){
-			  if(data.value==='on'){
+			  if(data.elem.checked===true){
         		  $.axget('/work/gauging/sysProductNo',null,function(result){
       	          	if(result.code==0){
       	          		if(isEmpty(result.data)){

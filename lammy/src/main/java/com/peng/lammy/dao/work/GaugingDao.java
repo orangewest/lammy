@@ -1,5 +1,7 @@
 package com.peng.lammy.dao.work;
 
+import java.util.List;
+
 import com.peng.lammy.domain.po.work.Gauging;
 
 public interface GaugingDao {
@@ -24,4 +26,26 @@ public interface GaugingDao {
 	 * @return
 	 */
 	String getGaugingNoOrderByDate();
+
+	/**
+	 * 查询检测列表
+	 * 
+	 * @return
+	 */
+	List<Gauging> listGauging();
+
+	/**
+	 * 根据id查询
+	 * 
+	 * @param id
+	 * @return
+	 */
+	Gauging getGaugingById(Integer id);
+
+	/**
+	 * 更新
+	 * 
+	 * @param gauging
+	 */
+	void update(Gauging gauging);
 }

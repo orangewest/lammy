@@ -46,9 +46,11 @@
       <div class="xblock">
         <button class="layui-btn layui-btn-danger" id="removeAll"><i class="layui-icon"></i>批量删除</button>
         <button class="layui-btn" onclick="x_admin_show('添加检测信息','/lammy/work/gauging/gauging-add.html')"><i class="layui-icon"></i>添加</button>
+        <button class="layui-btn" onclick="x_admin_show('添加检测信息','/lammy/work/gauging/gauging-add.html')"><i class="layui-icon"></i>导入</button>
+        <button class="layui-btn" onclick="x_admin_show('添加检测信息','/lammy/work/gauging/gauging-add.html')"><i class="layui-icon"></i>导出</button>
       </div>
       
-      <table class="layui-hide" id="notepad" lay-filter="notepad"></table>
+      <table class="layui-hide" id="gauging" lay-filter="gauging"></table>
       
         <div class="td-manage" id="bar">
               <a title="编辑" lay-event="edit"   href="javascript:;">
@@ -64,17 +66,14 @@
     <script type="text/javascript" src="/lib/layui/layui.js" ></script>
     <script type="text/javascript" src="/js/xadmin.js"></script>
     <script type="text/javascript" src="/js/session.js"></script>
-    <script type="text/html" id="state">
-		<input type="checkbox" name="state" value="{{d.id}}" lay-skin="switch" lay-text="是|否" lay-filter="state" {{ d.state == 1 ? 'checked' : '' }}>
-    </script>
     <script type="text/javascript">
       layui.use(['laydate','table','form'], function(){
         var laydate = layui.laydate;
         var table = layui.table;
         var form = layui.form;
-        initTable(table,'/notepad');
+        initTable(table,'/work/gauging');
       	//监听工具条
-        table.on('tool(notepad)', function(obj){
+        table.on('tool(gauging)', function(obj){
           var data = obj.data;
           if(obj.event === 'del'){
               layer.confirm('真的删除么  ╮(︶﹏︶)╭', function(index){
@@ -89,20 +88,8 @@
             	  })
               });
           } else if(obj.event === 'edit'){
-        	  x_admin_show('记事本编辑','/lammy/notepad/notepad-edit.html?id='+data.id);
+        	  x_admin_show('检测管理编辑','/lammy/work/gauging/gauging-edit.html?id='+data.id);
           }
-        });
-      	
-      	//监听状态操作
-        form.on('switch(state)', function(obj){
-          var state = obj.elem.checked == true ? 1 : 0;
-          $.axput('/notepad/'+obj.value+'/state/'+state,null,function(result){
-        	  if(result.code==0){
-        	  }else{
-        		  layer.msg(result.msg)
-        	  }
-        	  location.reload();
-          })
         });
       	
       	//监听搜索
@@ -135,19 +122,37 @@
       	
       	function initTable(table,url,where){
       		table.render({
-                elem: '#notepad',
+                elem: '#gauging',
                 url: url,
                 where : where,
                 cols: [[
                   {type:'checkbox'},
-                  {field:'id',width:80,align:'center',title: 'ID'},
-                  {field:'title',width:100,align:'center',title: '标题'},
-                  {field:'content',minWidth:100,align:'center',title: '内容'},
-                  {field:'createdTime',width:150,align:'center',title: '创建时间',sort: true},
-                  {field:'remindTime',width:150,align:'center',title: '设定完成时间',sort: true},
-                  {field:'completeTime',width:150,align:'center',title: '完成时间',sort: true},
-                  {field:'state',width:100,align:'center',title: '是否完成',templet: '#state', unresize: true},
-                  {title: '操作',width:100, align:'center', toolbar: '#bar'}
+                  {field:'gaugingNo',width:110,align:'center',title: '检测编号',sort: true},
+                  {field:'sampleName',width:110,align:'center',title: '样品名称'},
+                  {field:'sendPerson',minWidth:100,align:'center',title: '送样人'},
+                  {field:'gaugingDate',width:110,align:'center',title: '送样日期',sort: true},
+                  {field:'siO2',width:80,align:'center',title: 'SiO2'},
+                  {field:'fe2O3',width:80,align:'center',title: 'Fe2O3'},
+                  {field:'al2O3',width:80,align:'center',title: 'Al2O3'},
+                  {field:'caO',width:80,align:'center',title: 'CaO'},
+                  {field:'mgO',width:80,align:'center',title: 'MgO'},
+                  {field:'cd',width:80,align:'center',title: 'Cd'},
+                  {field:'pb',width:80,align:'center',title: 'Pb'},
+                  {field:'h2O',width:80,align:'center',title: 'H2O'},
+                  {field:'xrd',width:80,align:'center',title: 'XRD'},
+                  {field:'ssa',width:80,align:'center',title: '比表面'},
+                  {field:'ph',width:80,align:'center',title: 'pH'},
+                  {field:'minusTwoμm',width:80,align:'center',title: '-2μm'},
+                  {field:'whiteness',width:80,align:'center',title: '白度'},
+                  {field:'il',width:80,align:'center',title: 'IL'},
+                  {field:'suspensibility',width:110,align:'center',title: '悬浮度/mL'},
+                  {field:'adsorbed',width:110,align:'center',title: '胶质价ml/15g'},
+                  {field:'bentonites',width:110,align:'center',title: '膨胀容ml/g'},
+                  {field:'viscosity',width:80,align:'center',title: '粘度'},
+                  {field:'methyleneBlue',width:80,align:'center',title: '吸蓝量'},
+                  {field:'oilAbsorption',width:110,align:'center',title: '吸油量g/100g'},
+                  {field:'remark',width:150,align:'center',title: '备注'},
+                  {title: '操作',width:100, align:'center', toolbar: '#bar',fixed: 'right'}
                 ]],
                 page: true
              });
