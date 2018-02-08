@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+  
+  <head>
+    <meta charset="UTF-8">
+    <title>检测管理列表下载页</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width,user-scalable=yes, minimum-scale=0.4, initial-scale=0.8" />
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
+    <link rel="stylesheet" href="/css/font.css">
+    <link rel="stylesheet" href="/css/xadmin.css">
+    <!-- 让IE8/9支持媒体查询，从而兼容栅格 -->
+    <!--[if lt IE 9]>
+      <script src="https://cdn.staticfile.org/html5shiv/r29/html5.min.js"></script>
+      <script src="https://cdn.staticfile.org/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+  </head>
+  
+  <body>
+    <div class="x-body">
+      <div class="layui-row">
+        <form class="layui-form layui-col-md12 x-so">
+        <div class="layui-form-item">
+          <div class="layui-input-inline">
+        	<input type="text" class="layui-input" name="year" id="year" placeholder="根据年份下载">
+      	  </div>
+      	 </div>
+      	  <div class="layui-form-item">
+      	  <div class="layui-input-inline">
+        	<input type="text" class="layui-input" name="month" id="month" placeholder="根据年月份下载">
+      	  </div>
+      	  </div>
+      	  <button class="layui-btn"  lay-submit="search" lay-filter="search"><i class="layui-icon">&#xe601;</i></button>
+        </form>
+      </div>
+    </div>
+    <script type="text/javascript" src="/js/jquery-3.3.1.min.js"></script>
+    <script type="text/javascript" src="/lib/layui/layui.js" ></script>
+    <script type="text/javascript" src="/js/xadmin.js"></script>
+    <script type="text/javascript" src="/js/session.js"></script>
+    <script type="text/javascript">
+      layui.use(['laydate','table','form','upload'], function(){
+        var laydate = layui.laydate;
+        var form = layui.form;
+      	//年选择器
+        laydate.render({
+          elem: '#year'
+          ,type: 'year'
+        });
+        //年月选择器
+        laydate.render({
+          elem: '#month'
+          ,type: 'month'
+        });
+       //下载
+   	   form.on('submit(search)', function(data){
+   			location.href = '/work/gauging/download?year='+data.field.year+'&month='+data.field.month;
+   			return false;
+        });
+    	   
+      });
+    </script>
+  </body>
+
+</html>

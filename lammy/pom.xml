@@ -118,6 +118,39 @@
 		         <!--指定该Main Class为全局的唯一入口-->
 		         <mainClass>com.peng.lammy.LammyApplication</mainClass>
 		         <layout>ZIP</layout>
+		         <excludeGroupIds>
+			         org.springframework.boot,
+			         org.springframework,
+			         com.h2database,
+			         com.xiaoleilu,
+			         com.github.pagehelper,
+			         com.alibaba,
+			         org.projectlombok,
+			         com.vaadin.external.google,
+			         cn.afterturn,
+			         org.mybatis,
+			         org.mybatis.spring.boot,
+			         org.apache.poi,
+			         com.fasterxml.jackson.core,
+			         org.apache.tomcat.embed,
+			         org.apache.tomcat,
+			         commons-codec,
+			         com.google.guava,
+			         org.apache.xmlbeans,
+			         org.aspectj,
+			         org.apache.commons,
+			         commons-lang3,
+			         org.hibernate,
+			         com.github.jsqlparser,
+			         com.fasterxml,
+			         com.github.virtuald,
+			         org.jboss.logging,
+			         org.slf4j,
+			         ch.qos.logback,
+			         org.yaml,
+			         javax.validation,
+			         stax
+		         </excludeGroupIds>
 		      </configuration>
 		      <executions>
 		         <execution>

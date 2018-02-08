@@ -4,8 +4,8 @@
 
 	<!-- 新增 -->
 	<insert id="insert" parameterType="com.peng.lammy.domain.po.work.Gauging">
-INSERT INTO LAMMY_GAUGING(SEND_PERSON,SAMPLE_NAME,GAUGING_NO,GAUGING_DATE,REMARK,SIO2,FE2O3,AL2O3,CAO,MGO,CD,PB,H2O,XRD,SSA,PH,MINUS_TWOΜM,WHITENESS,IL,SUSPENSIBILITY,ADSORBED,BENTONITES,VISCOSITY,METHYLENE_BLUE,OIL_ABSORPTION,CREATED_TIME,UPDATE_TIME,IS_DELETE)
-values(#{sendPerson},#{sampleName},#{gaugingNo},#{gaugingDate},#{remark},#{sio2},#{fe2o3},#{al2o3},#{cao},#{mgo},#{cd},#{pb},#{h2o},#{xrd},#{ssa},#{ph},#{minusTwoμm},#{whiteness},#{il},#{suspensibility},#{adsorbed},#{bentonites},#{viscosity},#{methyleneBlue},#{oilAbsorption},#{createdTime},#{updateTime},0)
+INSERT INTO LAMMY_GAUGING(SEND_PERSON,SAMPLE_NAME,GAUGING_NO,GAUGING_NO_ORDER,GAUGING_DATE,REMARK,SIO2,FE2O3,AL2O3,CAO,MGO,CD,PB,H2O,XRD,SSA,PH,MINUS_TWOΜM,WHITENESS,IL,SUSPENSIBILITY,ADSORBED,BENTONITES,VISCOSITY,METHYLENE_BLUE,OIL_ABSORPTION,CREATED_TIME,UPDATE_TIME,IS_DELETE)
+values(#{sendPerson},#{sampleName},#{gaugingNo},#{gaugingNoOrder},#{gaugingDate},#{remark},#{sio2},#{fe2o3},#{al2o3},#{cao},#{mgo},#{cd},#{pb},#{h2o},#{xrd},#{ssa},#{ph},#{minusTwoμm},#{whiteness},#{il},#{suspensibility},#{adsorbed},#{bentonites},#{viscosity},#{methyleneBlue},#{oilAbsorption},#{createdTime},#{updateTime},0)
 	</insert>
 	
 	<!-- 根据编号查询是否有相同编号 -->
@@ -33,7 +33,7 @@ AND SAMPLE_NAME LIKE #{sampleName}
 <if test="gaugingDate!=null and gaugingDate!=''">
 AND GAUGING_DATE LIKE #{gaugingDate}
 </if>
-ORDER BY GAUGING_DATE DESC
+ORDER BY GAUGING_DATE DESC,GAUGING_NO_ORDER DESC
 	</select>
 	
 	<!-- 根据id查询 -->

@@ -66,7 +66,7 @@ CREATE TABLE `lammy_gauging` (
   `send_person` varchar(255) DEFAULT NULL COMMENT '送样人',
   `sample_name` varchar(255) DEFAULT NULL,
   `gauging_no` varchar(255) DEFAULT NULL,
-  `gauging_no_order` varchar(255) DEFAULT NULL,
+  `gauging_no_order` int(255) DEFAULT NULL,
   `gauging_date` varchar(255) DEFAULT NULL,
   `remark` varchar(255) DEFAULT NULL,
   `SiO2` varchar(255) DEFAULT NULL,

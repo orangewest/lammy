@@ -108,10 +108,8 @@ public class GaugingController {
 	}
 
 	@GetMapping("/download")
-	public void download(ModelMap map, HttpServletRequest request, HttpServletResponse response) {
-		GaugingDTO gaugingDTO = new GaugingDTO();
-		gaugingDTO.setLimit(10);
-		gaugingDTO.setPage(1);
+	public void download(GaugingDTO gaugingDTO, ModelMap map, HttpServletRequest request,
+			HttpServletResponse response) {
 		List<Gauging> listGauging = gaugingService.listGauging(gaugingDTO);
 		List<GaugingPoiDTO> gaugingPoiDTOs = new ArrayList<GaugingPoiDTO>();
 		for (Gauging gauging : listGauging) {
@@ -120,7 +118,7 @@ public class GaugingController {
 			gaugingPoiDTOs.add(gaugingPoiDTO);
 		}
 		ExportParams params = new ExportParams(null, "测试", ExcelType.XSSF);
-		params.setFreezeCol(2);
+		params.setFreezeCol(1);
 		map.put(NormalExcelConstants.DATA_LIST, gaugingPoiDTOs);
 		map.put(NormalExcelConstants.CLASS, GaugingPoiDTO.class);
 		map.put(NormalExcelConstants.PARAMS, params);

@@ -59,8 +59,8 @@
       <div class="xblock">
         <button class="layui-btn layui-btn-danger" id="removeAll"><i class="layui-icon"></i>批量删除</button>
         <button class="layui-btn" onclick="x_admin_show('添加检测信息','/lammy/work/gauging/gauging-add.html')"><i class="layui-icon"></i>添加</button>
-        <button class="layui-btn" id="upload"><i class="layui-icon"></i>Excle导入</button>
-        <button class="layui-btn" id="download"><i class="layui-icon"></i>Excle导出</button>
+        <button class="layui-btn" id="upload"><i class="layui-icon">&#xe62f;</i>Excle导入</button>
+        <button class="layui-btn" onclick="x_admin_show('下载页面','/lammy/work/gauging/gauging-download.html',400,400)" id="download"><i class="layui-icon">&#xe601;</i>Excle导出</button>
       </div>
       
       <table class="layui-hide" id="gauging" lay-filter="gauging"></table>
@@ -98,20 +98,31 @@
         laydate.render({
             elem: '#gaugingDate'
           });
-        
+        var index ;
        //上传
         upload.render({
           elem: '#upload'
           ,url: '/work/gauging/upload'
           ,accept: 'file' //普通文件
+       	  ,before: function(obj){
+       		index = layer.load(1, {shade: false}); //0代表加载的风格，支持0-2
+       	    }
           ,done: function(res){
-            console.log(res)
+        	  if(res.code==0){
+        		  layer.msg('导入数据完成');
+        		  layer.close(index);
+        		  location.reload();
+        	  }
+          },error: function(){
+        	  layer.close(index);
           }
         });
+       
        //下载
-       $('#download').on('click',function(){
-    	   location.href = '/work/gauging/download';
-       })
+       //$('#download').on('click',function(){
+    	   
+    	   //location.href = '/work/gauging/download';
+       //})
         initTable(table,'/work/gauging');
       	//监听工具条
         table.on('tool(gauging)', function(obj){
@@ -169,7 +180,7 @@
                 cols: [[
                   {type:'checkbox'},
                   {field:'gaugingNo',width:110,align:'center',title: '检测编号',sort: true},
-                  {field:'sampleName',width:110,align:'center',title: '样品名称'},
+                  {field:'sampleName',width:200,align:'center',title: '样品名称'},
                   {field:'sendPerson',minWidth:100,align:'center',title: '送样人'},
                   {field:'gaugingDate',width:110,align:'center',title: '送样日期',sort: true},
                   {field:'sio2',width:80,align:'center',title: 'SiO2'},
