@@ -13,22 +13,23 @@ public class Gauging {
 	private String sendPerson;// 送样人
 	private String sampleName;// 样品名称
 	private String gaugingNo;//
+	private Integer gaugingNoOrder;//
 	private String gaugingDate;//
 	private String remark;//
-	private String SiO2;//
-	private String Fe2O3;//
-	private String Al2O3;//
-	private String CaO;//
-	private String MgO;//
-	private String Cd;//
-	private String Pb;//
-	private String H2O;//
-	private String XRD;//
-	private String SSA;//
-	private String pH;//
+	private String sio2;//
+	private String fe2o3;//
+	private String al2o3;//
+	private String cao;//
+	private String mgo;//
+	private String cd;//
+	private String pb;//
+	private String h2o;//
+	private String xrd;//
+	private String ssa;//
+	private String ph;//
 	private String minusTwoμm;// -2μm
 	private String whiteness;// 白度
-	private String IL;//
+	private String il;//
 	private String suspensibility;// 悬浮度/mL
 	private String adsorbed;// 胶质价ml/15g
 	private String bentonites;// 膨胀容ml/g

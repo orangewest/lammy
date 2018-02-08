@@ -32,7 +32,7 @@
 	                    <div class="layui-input-inline">
 	      					<input type="text" id="gaugingNo" name="gaugingNo" autocomplete="off" placeholder="请输入检测编号" class="layui-input" lay-verify="required">
 	    				</div>
-	    				<div class="layui-input-inline">
+	    				<div class="layui-input-inline" id="tip">
 	    					<input type="checkbox"   name="sysProduct" lay-skin="primary" title="系统生成" lay-filter="sysProduct">
 	    				</div>
                 	</div>
@@ -66,13 +66,13 @@
 			    		<div class="layui-inline">
 		                    <label for="name" class="layui-form-label">SiO<span class="x-sub">2</span></label>
 		                    <div class="layui-input-inline">
-		      					<input type="text" name="SiO2" class="layui-input" >
+		      					<input type="text" name="sio2" class="layui-input" >
 		    				</div>
                 		</div>
                 		<div class="layui-inline">
 		                    <label for="name" class="layui-form-label">Fe<span class="x-sub">2</span>O<span class="x-sub">3</span></label>
 		                    <div class="layui-input-inline">
-		      					<input type="text" name="Fe2O3" class="layui-input" >
+		      					<input type="text" name="fe2o3" class="layui-input" >
 		    				</div>
                 		</div>
                 	</div>
@@ -80,13 +80,13 @@
 			    		<div class="layui-inline">
 		                    <label for="name" class="layui-form-label">Al<span class="x-sub">2</span>O<span class="x-sub">3</span></label>
 		                    <div class="layui-input-inline">
-		      					<input type="text" name="Al2O3" class="layui-input" >
+		      					<input type="text" name="al2o3" class="layui-input" >
 		    				</div>
                 		</div>
                 		<div class="layui-inline">
 		                    <label for="name" class="layui-form-label">CaO</label>
 		                    <div class="layui-input-inline">
-		      					<input type="text" name="CaO"  class="layui-input" >
+		      					<input type="text" name="cao"  class="layui-input" >
 		    				</div>
                 		</div>
                 	</div>
@@ -94,13 +94,13 @@
 			    		<div class="layui-inline">
 		                    <label for="name" class="layui-form-label">MgO</label>
 		                    <div class="layui-input-inline">
-		      					<input type="text" name="MgO"  class="layui-input" >
+		      					<input type="text" name="mgo"  class="layui-input" >
 		    				</div>
                 		</div>
                 		<div class="layui-inline">
 		                    <label for="name" class="layui-form-label">Cd</label>
 		                    <div class="layui-input-inline">
-		      					<input type="text" name="Cd" class="layui-input" >
+		      					<input type="text" name="cd" class="layui-input" >
 		    				</div>
                 		</div>
                 	</div>
@@ -108,13 +108,13 @@
 			    		<div class="layui-inline">
 		                    <label for="name" class="layui-form-label">Pb</label>
 		                    <div class="layui-input-inline">
-		      					<input type="text" name="Pb"  class="layui-input" >
+		      					<input type="text" name="pb"  class="layui-input" >
 		    				</div>
                 		</div>
                 		<div class="layui-inline">
 		                    <label for="name" class="layui-form-label">H<span class="x-sub">2</span>O</label>
 		                    <div class="layui-input-inline">
-		      					<input type="text" name="H2O"  class="layui-input" >
+		      					<input type="text" name="h2o"  class="layui-input" >
 		    				</div>
                 		</div>
                 	</div>
@@ -122,13 +122,13 @@
 			    		<div class="layui-inline">
 		                    <label for="name" class="layui-form-label">XRD</label>
 		                    <div class="layui-input-inline">
-		      					<input type="text" name="XRD"  class="layui-input">
+		      					<input type="text" name="xrd"  class="layui-input">
 		    				</div>
                 		</div>
                 		<div class="layui-inline">
 		                    <label for="name" class="layui-form-label">比表面</label>
 		                    <div class="layui-input-inline">
-		      					<input type="text" name="SSA" class="layui-input" >
+		      					<input type="text" name="ssa" class="layui-input" >
 		    				</div>
                 		</div>
                 	</div>
@@ -136,7 +136,7 @@
 			    		<div class="layui-inline">
 		                    <label for="name" class="layui-form-label">pH</label>
 		                    <div class="layui-input-inline">
-		      					<input type="text" name="pH" class="layui-input" >
+		      					<input type="text" name="ph" class="layui-input" >
 		    				</div>
                 		</div>
                 		<div class="layui-inline">
@@ -156,7 +156,7 @@
                 		<div class="layui-inline">
 		                    <label for="name" class="layui-form-label">IL</label>
 		                    <div class="layui-input-inline">
-		      					<input type="text" name="IL"  class="layui-input" >
+		      					<input type="text" name="il"  class="layui-input" >
 		    				</div>
                 		</div>
                 	</div>
@@ -224,7 +224,11 @@
         	    elem: '#gaugingDate', //指定元素
         	    trigger: 'click'
           });
-          
+          $('#tip').on('mouseenter',function(){
+        	  layer.tips('系统获取数据库中最大编号+1，然后生成新的编号','#tip',{
+        		  tips: [2, '#78BA32']
+        	  });
+          })
           //编号检测
           $('#gaugingNo').on('blur',function(){
         	  var gaugingNo = $('#gaugingNo').val();

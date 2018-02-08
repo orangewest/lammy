@@ -57,4 +57,21 @@ public interface GaugingService {
 	 */
 	Gauging update(Gauging gauging);
 
+	/**
+	 * 删除
+	 * 
+	 * @param id
+	 */
+	void deleteById(Integer id);
+
+	void deleteBatch(Integer[] ids);
+
+	/**
+	 * 批量导入插入
+	 * 
+	 * @param filePath
+	 * @return
+	 */
+	Long insertBatch(String filePath);
+
 }

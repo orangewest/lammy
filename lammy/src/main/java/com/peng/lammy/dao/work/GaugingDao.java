@@ -2,6 +2,7 @@ package com.peng.lammy.dao.work;
 
 import java.util.List;
 
+import com.peng.lammy.domain.dto.work.GaugingDTO;
 import com.peng.lammy.domain.po.work.Gauging;
 
 public interface GaugingDao {
@@ -21,18 +22,18 @@ public interface GaugingDao {
 	int countGaugingByNo(String gaugingNo);
 
 	/**
-	 * 查询最近一条编号
+	 * 查询最大编号
 	 * 
 	 * @return
 	 */
-	String getGaugingNoOrderByDate();
+	String getMaxGaugingNo();
 
 	/**
 	 * 查询检测列表
 	 * 
 	 * @return
 	 */
-	List<Gauging> listGauging();
+	List<Gauging> listGauging(GaugingDTO gaugingDTO);
 
 	/**
 	 * 根据id查询
@@ -48,4 +49,11 @@ public interface GaugingDao {
 	 * @param gauging
 	 */
 	void update(Gauging gauging);
+
+	/**
+	 * 删除
+	 * 
+	 * @param id
+	 */
+	void deleteById(Integer id);
 }
