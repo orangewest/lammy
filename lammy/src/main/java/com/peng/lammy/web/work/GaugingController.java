@@ -97,7 +97,7 @@ public class GaugingController {
 	@PostMapping("/upload")
 	public Response<Long> upload(@RequestParam("file") MultipartFile file, HttpServletRequest request) {
 		String fileName = file.getOriginalFilename();
-		String filePath = "/fileUpload";
+		String filePath = "fileUpload/";
 		try {
 			FileUtils.uploadFile(file.getBytes(), filePath, fileName);
 		} catch (Exception e) {

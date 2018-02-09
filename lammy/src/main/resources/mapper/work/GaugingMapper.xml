@@ -15,7 +15,7 @@ SELECT COUNT(*) FROM LAMMY_GAUGING WHERE GAUGING_NO = #{gaugingNo}
 	
 	<!-- 查询系统最大编号 -->
 	<select id="getMaxGaugingNo" resultType="java.lang.String">
-SELECT GAUGING_NO FROM LAMMY_GAUGING ORDER BY GAUGING_NO_ORDER DESC LIMIT 1	
+SELECT GAUGING_NO FROM LAMMY_GAUGING WHERE IS_DELETE = 0 ORDER BY GAUGING_NO_ORDER DESC LIMIT 1	
 	</select>
 	
 	<!-- 查询检测列表 -->
@@ -49,6 +49,6 @@ WHERE ID = #{id}
 	
 	<!-- 删除 -->
 	<delete id="deleteById">
-DELETE FROM LAMMY_GAUGING WHERE ID = #{id}	
+UPDATE LAMMY_GAUGING SET IS_DELETE = 1 WHERE ID = #{id}	
 	</delete>
 </mapper>
