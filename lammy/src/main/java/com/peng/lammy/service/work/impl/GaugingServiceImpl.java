@@ -1,8 +1,9 @@
 package com.peng.lammy.service.work.impl;
 
 import java.io.File;
-import java.util.Date;
+import java.text.SimpleDateFormat;
 import java.util.List;
+import java.util.Locale;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -109,6 +110,7 @@ public class GaugingServiceImpl implements GaugingService {
 		List<GaugingPoiDTO> list = ExcelImportUtil.importExcel(new File(filePath), GaugingPoiDTO.class,
 				new ImportParams());
 		Long count = 0L;
+		SimpleDateFormat simpleDateFormat = new SimpleDateFormat("EEE MMM dd HH:mm:ss Z yyyy", Locale.UK);
 		for (GaugingPoiDTO gaugingPoiDTO : list) {
 			if (StrUtil.isBlank(gaugingPoiDTO.getSendPerson()) || StrUtil.isBlank(gaugingPoiDTO.getGaugingNo())
 					|| !ReUtil.isMatch("[w,W]\\d+", gaugingPoiDTO.getGaugingNo())) {
@@ -117,8 +119,8 @@ public class GaugingServiceImpl implements GaugingService {
 			Gauging gauging = new Gauging();
 			BeanUtils.copyProperties(gaugingPoiDTO, gauging);
 			try {
-				gauging.setGaugingDate(
-						DateUtil.format(new Date(gaugingPoiDTO.getGaugingDate()), DatePattern.NORM_DATE_FORMAT));
+				gauging.setGaugingDate(DateUtil.format(simpleDateFormat.parse(gaugingPoiDTO.getGaugingDate()),
+						DatePattern.NORM_DATE_FORMAT));
 				insert(gauging);
 				count++;
 			} catch (Exception e) {
@@ -127,5 +129,4 @@ public class GaugingServiceImpl implements GaugingService {
 		}
 		return count;
 	}
-
 }

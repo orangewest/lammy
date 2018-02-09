@@ -33,13 +33,13 @@
         <form class="layui-form layui-col-md12 x-so">
         <div class="layui-form-item">
           <div class="layui-input-inline">
-          	<input type="text" name="gaugingNo"  placeholder="请输入检测编号" autocomplete="off" class="layui-input">
+          	<input type="text" name="gaugingNo"  placeholder="输入检测编号查询" autocomplete="off" class="layui-input">
           </div>
           <div class="layui-input-inline">
-          	<input type="text" name="sendPerson"  placeholder="请输入送样人姓名" autocomplete="off" class="layui-input">
+          	<input type="text" name="sendPerson"  placeholder="输入送样人姓名查询" autocomplete="off" class="layui-input">
           </div>
           <div class="layui-input-inline">
-          	<input type="text" name="sampleName"  placeholder="请输入样品名称" autocomplete="off" class="layui-input">
+          	<input type="text" name="sampleName"  placeholder="输入样品名称查询" autocomplete="off" class="layui-input">
           </div>
          </div>
          <div class="layui-form-item">
@@ -109,9 +109,10 @@
        	    }
           ,done: function(res){
         	  if(res.code==0){
-        		  layer.msg('导入数据完成');
         		  layer.close(index);
-        		  location.reload();
+        		  layer.msg('导入数据完成,共导入'+res.data+'条数据！',function(){
+            		  location.reload();
+        		  });
         	  }
           },error: function(){
         	  layer.close(index);

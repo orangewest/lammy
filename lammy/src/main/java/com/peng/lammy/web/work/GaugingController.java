@@ -95,7 +95,7 @@ public class GaugingController {
 	}
 
 	@PostMapping("/upload")
-	public Response<Boolean> upload(@RequestParam("file") MultipartFile file, HttpServletRequest request) {
+	public Response<Long> upload(@RequestParam("file") MultipartFile file, HttpServletRequest request) {
 		String fileName = file.getOriginalFilename();
 		String filePath = "/fileUpload";
 		try {
@@ -103,8 +103,7 @@ public class GaugingController {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		gaugingService.insertBatch(filePath + fileName);
-		return ResponseFactory.creatSuccessResponse(Boolean.TRUE);
+		return ResponseFactory.creatSuccessResponse(gaugingService.insertBatch(filePath + fileName));
 	}
 
 	@GetMapping("/download")
