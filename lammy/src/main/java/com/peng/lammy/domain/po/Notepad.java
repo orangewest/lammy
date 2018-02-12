@@ -14,5 +14,5 @@ public class Notepad {
 	private String remindTime;// 提醒时间
 	private String createdTime;
 	private String updateTime;
-	private String isDelete;
+	private Integer isDelete;
 }

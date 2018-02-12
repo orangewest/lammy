@@ -23,13 +23,13 @@
 			<div class="layui-form-item">
 				<label for="name" class="layui-form-label">试剂名称</label>
 				<div class="layui-input-block">
-					<input type="text" name="reagentName" autocomplete="off" placeholder="请输入检测编号" class="layui-input" lay-verify="required">
+					<input type="text" name="reagentName" autocomplete="off" placeholder="请输入试剂名称" class="layui-input" lay-verify="required">
 				</div>
 			</div>
 			<div class="layui-form-item">
 				<label for="name" class="layui-form-label">规格</label>
 				<div class="layui-input-block">
-					<input type="text" name="standard" autocomplete="off" placeholder="请输入送样人姓名" class="layui-input" lay-verify="required">
+					<input type="text" name="standard" autocomplete="off" placeholder="请输入试剂规格" class="layui-input" lay-verify="required">
 				</div>
 			</div>
 			<div class="layui-form-item">
@@ -41,6 +41,22 @@
 				</div>
 			</div>
 			<div class="layui-form-item">
+				<div class="layui-inline">
+					<label for="name" class="layui-form-label">入库数量</label>
+					<div class="layui-input-inline" >
+						<input type="text" name="stock" autocomplete="off" placeholder="请输入入库数量 " lay-verify="number" class="layui-input" lay-verify="required">
+					</div>
+				</div>
+				<div class="layui-inline">
+					<label for="name" class="layui-form-label">数量单位</label>
+					<div class="layui-input-inline" >
+						<select name="unit" id="unitType">
+							<option v-for="unitType in unitTypes" v-bind:value="unitType.dictCode">{{unitType.dictName}}</option>
+						  </select>
+					</div>
+				</div>
+			</div>
+			<div class="layui-form-item">
 				<button class="layui-btn" lay-submit="" lay-filter="add">添加</button>
 			</div>
 		</form>
@@ -49,7 +65,7 @@
 	<script type="text/javascript" src="/lib/layui/layui.js"></script>
 	<script type="text/javascript" src="/js/xadmin.js"></script>
 	<script type="text/javascript" src="/js/session.js"></script>
-	<script type="text/javascript" src="/js/vue.js"></script>
+	<script type="text/javascript" src="/js/vue.min.js"></script>
 	<script>
 		var reagentType = new Vue({
 			el: '#reagentType',
@@ -57,11 +73,27 @@
 				reagentTypes: []
 			}
 		})
+		var unitType = new Vue({
+			el: '#unitType',
+			data: {
+				unitTypes: []
+			}
+		})
 		$.ajax({
 			url : '/dict/type/reagent_type',
+			async : false,
 			success : function(res){
 				if(res.code == 0){
 					reagentType.reagentTypes = res.data
+				}
+			}
+		})
+		$.ajax({
+			url : '/dict/type/quantity_unit',
+			async : false,
+			success : function(res){
+				if(res.code == 0){
+					unitType.unitTypes = res.data
 				}
 			}
 		})
@@ -72,7 +104,7 @@
 			//监听提交
 			form.on('submit(add)', function (data) {
 				console.log(JSON.stringify(data.field));
-				$.axpost('/work/gauging', data.field, function (result) {
+				$.axpost('/work/reagent', data.field, function (result) {
 					if (result.code == 0) {
 						layer.alert("增加成功", {
 							icon: 6

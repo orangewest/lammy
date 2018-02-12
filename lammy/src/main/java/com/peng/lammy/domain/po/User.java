@@ -9,5 +9,5 @@ public class User {
 	private String password;
 	private String createdTime;
 	private String updateTime;
-	private String isDelete;
+	private Integer isDelete;
 }

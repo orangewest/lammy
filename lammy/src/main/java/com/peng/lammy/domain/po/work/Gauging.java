@@ -38,6 +38,6 @@ public class Gauging {
 	private String oilAbsorption;// 吸油量g/100g
 	private String createdTime;
 	private String updateTime;
-	private String isDelete;
+	private Integer isDelete;
 
 }

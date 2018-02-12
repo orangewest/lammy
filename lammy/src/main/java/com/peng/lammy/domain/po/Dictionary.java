@@ -13,7 +13,8 @@ public class Dictionary {
 	private String dictCode;
 	private String dictName;
 	private String dictType;
+	private Integer dictAuth;
 	private String createdTime;
 	private String updateTime;
-	private String isDelete;
+	private Integer isDelete;
 }

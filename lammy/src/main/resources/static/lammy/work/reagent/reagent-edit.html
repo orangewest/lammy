@@ -19,193 +19,41 @@
   
   <body>
     <div class="x-body">
-        <form class="layui-form layui-form-pane">
-        	<div class="layui-tab">
-			  <ul class="layui-tab-title">
-			    <li class="layui-this">基本信息</li>
-			    <li>检测信息</li>
-			  </ul>
-			  <div class="layui-tab-content" id="gauging">
-			    <div class="layui-tab-item layui-show">
-			     	<div class="layui-form-item">
-	                    <label for="name" class="layui-form-label">检测编号</label>
-	                    <div class="layui-input-inline">
-	      					<input type="text" readonly  id="gaugingNo" name="gaugingNo" autocomplete="off" placeholder="请输入检测编号" class="layui-input" lay-verify="required" v-model="gaugingInfo.gaugingNo">
-	    				</div>
-                	</div>
-                	<div class="layui-form-item">
-	                    <label for="name" class="layui-form-label">样品名称</label>
-	                    <div class="layui-input-block">
-	      					<input type="text" name="sampleName" autocomplete="off" placeholder="请输入样品名称" class="layui-input" lay-verify="required" v-model="gaugingInfo.sampleName">
-	    				</div>
-                	</div>
-                	<div class="layui-form-item">
-	                    <label for="name" class="layui-form-label">送样人</label>
-	                    <div class="layui-input-inline">
-	      					<input type="text" name="sendPerson" autocomplete="off" placeholder="请输入送样人姓名" class="layui-input" lay-verify="required" v-model="gaugingInfo.sendPerson">
-	    				</div>
-                	</div>
-                	<div class="layui-form-item">
-	                    <label for="name" class="layui-form-label">送样日期</label>
-	                    <div class="layui-inline">
-	      					<input type="text" id="gaugingDate" name="gaugingDate" autocomplete="off" placeholder="请输入送样日期" class="layui-input" lay-verify="required" v-model="gaugingInfo.gaugingDate">
-	    				</div>
-                	</div>
-                	<div class="layui-form-item layui-form-text">
-	                    <label for="name" class="layui-form-label">备注</label>
-	                    <div class="layui-input-block">
-	      					<textarea placeholder="请输入备注内容" class="layui-textarea" name="remark" v-model="gaugingInfo.remark"></textarea>
-	    				</div>
-                	</div>
-			    </div>
-			    <div class="layui-tab-item">
-			    	<div class="layui-form-item">
-			    		<div class="layui-inline">
-		                    <label for="name" class="layui-form-label">SiO<span class="x-sub" >2</span></label>
-		                    <div class="layui-input-inline">
-		      					<input type="text" name="sio2" class="layui-input" v-model="gaugingInfo.siO2">
-		    				</div>
-                		</div>
-                		<div class="layui-inline">
-		                    <label for="name" class="layui-form-label">Fe<span class="x-sub">2</span>O<span class="x-sub">3</span></label>
-		                    <div class="layui-input-inline">
-		      					<input type="text" name="fe2o3" class="layui-input" v-model="gaugingInfo.fe2O3">
-		    				</div>
-                		</div>
-                	</div>
-                	<div class="layui-form-item">
-			    		<div class="layui-inline">
-		                    <label for="name" class="layui-form-label">Al<span class="x-sub">2</span>O<span class="x-sub">3</span></label>
-		                    <div class="layui-input-inline">
-		      					<input type="text" name="al2o3" class="layui-input" v-model="gaugingInfo.al2O3">
-		    				</div>
-                		</div>
-                		<div class="layui-inline">
-		                    <label for="name" class="layui-form-label">CaO</label>
-		                    <div class="layui-input-inline">
-		      					<input type="text" name="cao"  class="layui-input" v-model="gaugingInfo.caO">
-		    				</div>
-                		</div>
-                	</div>
-                	<div class="layui-form-item">
-			    		<div class="layui-inline">
-		                    <label for="name" class="layui-form-label">MgO</label>
-		                    <div class="layui-input-inline">
-		      					<input type="text" name="mgo"  class="layui-input" v-model="gaugingInfo.mgO">
-		    				</div>
-                		</div>
-                		<div class="layui-inline">
-		                    <label for="name" class="layui-form-label">Cd</label>
-		                    <div class="layui-input-inline">
-		      					<input type="text" name="cd" class="layui-input" v-model="gaugingInfo.cd">
-		    				</div>
-                		</div>
-                	</div>
-                	<div class="layui-form-item">
-			    		<div class="layui-inline">
-		                    <label for="name" class="layui-form-label">Pb</label>
-		                    <div class="layui-input-inline">
-		      					<input type="text" name="pb"  class="layui-input" v-model="gaugingInfo.pb">
-		    				</div>
-                		</div>
-                		<div class="layui-inline">
-		                    <label for="name" class="layui-form-label">H<span class="x-sub">2</span>O</label>
-		                    <div class="layui-input-inline">
-		      					<input type="text" name="h2o"  class="layui-input" v-model="gaugingInfo.h2O">
-		    				</div>
-                		</div>
-                	</div>
-                	<div class="layui-form-item">
-			    		<div class="layui-inline">
-		                    <label for="name" class="layui-form-label">XRD</label>
-		                    <div class="layui-input-inline">
-		      					<input type="text" name="xrd"  class="layui-input" v-model="gaugingInfo.xrd">
-		    				</div>
-                		</div>
-                		<div class="layui-inline">
-		                    <label for="name" class="layui-form-label">比表面</label>
-		                    <div class="layui-input-inline">
-		      					<input type="text" name="ssa" class="layui-input" v-model="gaugingInfo.ssa">
-		    				</div>
-                		</div>
-                	</div>
-                	<div class="layui-form-item">
-			    		<div class="layui-inline">
-		                    <label for="name" class="layui-form-label">pH</label>
-		                    <div class="layui-input-inline">
-		      					<input type="text" name="ph" class="layui-input" v-model="gaugingInfo.ph">
-		    				</div>
-                		</div>
-                		<div class="layui-inline">
-		                    <label for="name" class="layui-form-label">-2μm</label>
-		                    <div class="layui-input-inline">
-		      					<input type="text" name="minusTwoμm" class="layui-input" v-model="gaugingInfo.minusTwoμm">
-		    				</div>
-                		</div>
-                	</div>
-                	<div class="layui-form-item">
-			    		<div class="layui-inline">
-		                    <label for="name" class="layui-form-label">白度</label>
-		                    <div class="layui-input-inline">
-		      					<input type="text" name="whiteness" class="layui-input" v-model="gaugingInfo.whiteness">
-		    				</div>
-                		</div>
-                		<div class="layui-inline">
-		                    <label for="name" class="layui-form-label">IL</label>
-		                    <div class="layui-input-inline">
-		      					<input type="text" name="il"  class="layui-input" v-model="gaugingInfo.il">
-		    				</div>
-                		</div>
-                	</div>
-                	<div class="layui-form-item">
-			    		<div class="layui-inline">
-		                    <label for="name" class="layui-form-label">悬浮度/mL</label>
-		                    <div class="layui-input-inline">
-		      					<input type="text" name="suspensibility"  class="layui-input" v-model="gaugingInfo.suspensibility">
-		    				</div>
-                		</div>
-                		<div class="layui-inline">
-		                    <label for="name" class="layui-form-label">胶质价ml/15g</label>
-		                    <div class="layui-input-inline">
-		      					<input type="text" name="adsorbed"  class="layui-input" v-model="gaugingInfo.adsorbed">
-		    				</div>
-                		</div>
-                	</div>
-                	<div class="layui-form-item">
-			    		<div class="layui-inline">
-		                    <label for="name" class="layui-form-label">膨胀容ml/g</label>
-		                    <div class="layui-input-inline">
-		      					<input type="text" name="bentonites"  class="layui-input" v-model="gaugingInfo.bentonites">
-		    				</div>
-                		</div>
-                		<div class="layui-inline">
-		                    <label for="name" class="layui-form-label">粘度</label>
-		                    <div class="layui-input-inline">
-		      					<input type="text" name="viscosity" class="layui-input" v-model="gaugingInfo.viscosity">
-		    				</div>
-                		</div>
-                	</div>
-                	<div class="layui-form-item">
-			    		<div class="layui-inline">
-		                    <label for="name" class="layui-form-label">吸蓝量</label>
-		                    <div class="layui-input-inline">
-		      					<input type="text" name="methyleneBlue"  class="layui-input" v-model="gaugingInfo.methyleneBlue">
-		    				</div>
-                		</div>
-                		<div class="layui-inline">
-		                    <label for="name" class="layui-form-label">吸油量g/100g</label>
-		                    <div class="layui-input-inline">
-		      					<input type="text" name="oilAbsorption" class="layui-input" v-model="gaugingInfo.oilAbsorption">
-		    				</div>
-                		</div>
-                	</div>
-                	<div class="layui-form-item">
-                		<button class="layui-btn" lay-submit="" lay-filter="edit">修改</button>
-              		</div>
-			    </div>
-			  </div>
-			  </div>
-            </form>
+        <form class="layui-form layui-form-pane" id="reagent">
+			<div class="layui-form-item">
+				<label for="name" class="layui-form-label">试剂名称</label>
+				<div class="layui-input-block">
+					<input type="text" name="reagentName" autocomplete="off" placeholder="请输入试剂名称" class="layui-input" lay-verify="required" v-model="reagentInfo.reagentName">
+				</div>
+			</div>
+			<div class="layui-form-item">
+				<label for="name" class="layui-form-label">规格</label>
+				<div class="layui-input-block">
+					<input type="text" name="standard" autocomplete="off" placeholder="请输入试剂规格" class="layui-input" lay-verify="required" v-model="reagentInfo.standard">
+				</div>
+			</div>
+			<div class="layui-form-item">
+				<label for="name" class="layui-form-label">试剂类型</label>
+				<div class="layui-input-block" >
+					<select name="type" >
+						<option v-for="reagentType in reagentTypes" v-bind:value="reagentType.dictCode" v-if="reagentInfo.type == reagentType.dictCode" selected>{{reagentType.dictName}}</option>
+						<option v-for="reagentType in reagentTypes" v-bind:value="reagentType.dictCode" v-if="reagentInfo.type != reagentType.dictCode">{{reagentType.dictName}}</option>
+					  </select>
+				</div>
+			</div>
+			<div class="layui-form-item">
+				<label for="name" class="layui-form-label">数量单位</label>
+				<div class="layui-input-inline" >
+					<select name="unit" >
+						<option v-for="unitType in unitTypes" v-bind:value="unitType.dictCode" v-if="reagentInfo.unit == unitType.dictCode" selected>{{unitType.dictName}}</option>
+						<option v-for="unitType in unitTypes" v-bind:value="unitType.dictCode" v-if="reagentInfo.unit != unitType.dictCode">{{unitType.dictName}}</option>
+					  </select>
+				</div>
+			</div>
+			<div class="layui-form-item">
+				<button class="layui-btn" lay-submit="edit" lay-filter="edit">修改</button>
+			</div>
+		</form>
     </div>
     <script type="text/javascript" src="/js/jquery-3.3.1.min.js"></script>
     <script type="text/javascript" src="/lib/layui/layui.js" ></script>
@@ -213,38 +61,56 @@
     <script type="text/javascript" src="/js/session.js"></script>
     <script type="text/javascript" src="/js/vue.min.js"></script>
     <script>
-    	var gauging = new Vue({
-    		el: '#gauging',
+    	var reagent = new Vue({
+    		el: '#reagent',
    		    data: {
-   		    	gaugingInfo: {}
+   		    	reagentInfo: '',
+   		    	reagentTypes:[],
+   		    	unitTypes :[]
    		    }
     	})
+    	
+    	$.ajax({
+			url : '/dict/type/reagent_type',
+			async : false,
+			success : function(res){
+				if(res.code == 0){
+					reagent.reagentTypes = res.data
+				}
+			}
+		})
+		$.ajax({
+			url : '/dict/type/quantity_unit',
+			async : false,
+			success : function(res){
+				if(res.code == 0){
+					reagent.unitTypes = res.data
+				}
+			}
+		})
     	var id = getUrlVars()['id'];
+    	
+    	if(isNotEmpty(id)){
+    		$.ajax({
+    			url : '/work/reagent/'+id,
+    			async : false,
+    			success : function(res){
+    				if(res.code == 0){
+    					reagent.reagentInfo = res.data;
+    				}
+    			}
+    		})
+          }
     	
         layui.use(['form','layer','laydate'], function(){
           var form = layui.form;
           var layer = layui.layer;
-          var laydate = layui.laydate;
-          
-          if(isNotEmpty(id)){
-          	  $.axget('/work/gauging/'+id,null,function(result){
-          		  if(result.code==0){
-          			gauging.gaugingInfo = result.data;
-          		  }else{
-          			  layer.msg(result.msg);
-          		  }
-                })
-            }
-          
-          laydate.render({
-        	    elem: '#gaugingDate', //指定元素
-        	    trigger: 'click'
-          });
+          form.render('select');
           
           //监听提交
           form.on('submit(edit)', function(data){
             console.log(JSON.stringify(data.field));
-            $.axput('/work/gauging/'+id,data.field,function(result){
+            $.axput('/work/reagent/'+id,data.field,function(result){
             	if(result.code==0){
             		layer.alert("修改成功", {icon: 6},function () {
             			window.parent.location.reload();

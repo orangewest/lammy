@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.peng.lammy.dao.work.ReagentStockDao">
+	<insert id="insert" parameterType="com.peng.lammy.domain.po.work.ReagentStock">
+INSERT INTO LAMMY_REAGENT_STOCK(REAGENT_ID,OPERATION,OPERATION_DATE,COUNT,REMARK,CREATED_TIME,UPDATE_TIME,IS_DELETE)
+VALUES(#{reagent_id},#{operation},#{operationDate},#{count},#{remark},#{createdTime},#{updateTime},0)
+	</insert>
+	
+	<!-- 查询库存操作记录 -->
+	<select id="listReagentStock" resultType="com.peng.lammy.domain.vo.work.ReagentStockVo">
+SELECT
+	a.ID,
+	a.OPERATION,
+	a.OPERATION_DATE,
+	a.COUNT,
+	a.REMARK,
+	b.REAGENT_NAME,
+	c.DICT_NAME UNIT
+FROM
+	LAMMY_REAGENT_STOCK a
+LEFT JOIN LAMMY_REAGENT b ON
+	a.REAGENT_ID = b.ID
+LEFT JOIN LAMMY_DICTIONARY c ON
+	b.UNIT = c.DICT_CODE
+WHERE
+	a.IS_DELETE = 0
+ORDER BY
+	ID DESC	
+	</select>
+</mapper>

@@ -22,8 +22,9 @@
       <span class="layui-breadcrumb">
         <a>首页</a>
         <a>工作助手</a>
+        <a>实验试剂管理</a>
         <a>
-          <cite>样品管理</cite></a>
+          <cite>试剂信息管理</cite></a>
       </span>
       <a class="layui-btn layui-btn-small" style="line-height:1.6em;margin-top:3px;float:right" href="javascript:location.replace(location.href);" title="刷新">
         <i class="layui-icon" style="line-height:30px">ဂ</i></a>
@@ -31,41 +32,30 @@
     <div class="x-body">
       <div class="layui-row">
         <form class="layui-form layui-col-md12 x-so">
-        <div class="layui-form-item">
           <div class="layui-input-inline">
-          	<input type="text" name="gaugingNo"  placeholder="输入检测编号查询" autocomplete="off" class="layui-input">
+          	<input type="text" name="reagentName"  placeholder="输入试剂名称查询" autocomplete="off" class="layui-input">
           </div>
-          <div class="layui-input-inline">
-          	<input type="text" name="sendPerson"  placeholder="输入送样人姓名查询" autocomplete="off" class="layui-input">
-          </div>
-          <div class="layui-input-inline">
-          	<input type="text" name="sampleName"  placeholder="输入样品名称查询" autocomplete="off" class="layui-input">
-          </div>
-         </div>
-         <div class="layui-form-item">
-          <div class="layui-input-inline">
-        	<input type="text" class="layui-input" name="year" id="year" placeholder="选择年份查询">
-      	  </div>
-      	  <div class="layui-input-inline">
-        	<input type="text" class="layui-input" name="month" id="month" placeholder="选择年月份查询">
-      	  </div>
-      	  <div class="layui-input-inline">
-        	<input type="text" class="layui-input" name="gaugingDate" id="gaugingDate" placeholder="选择日期查询">
+          <div class="layui-input-inline" id="reagentType">
+        	<select name="type" id="reagentType">
+        		<option value="">选择试剂类型查询</option>
+				<option v-for="reagentType in reagentTypes" v-bind:value="reagentType.dictCode">{{reagentType.dictName}}</option>
+			</select>
       	  </div>
       	  <button class="layui-btn"  lay-submit="search" lay-filter="search"><i class="layui-icon">&#xe615;</i></button>
-      	  </div>
         </form>
       </div>
       <div class="xblock">
         <button class="layui-btn layui-btn-danger" id="removeAll"><i class="layui-icon"></i>批量删除</button>
         <button class="layui-btn" onclick="x_admin_show('添加试剂信息','/lammy/work/reagent/reagent-add.html')"><i class="layui-icon"></i>添加</button>
-        <button class="layui-btn" id="upload"><i class="layui-icon">&#xe62f;</i>Excle导入</button>
-        <button class="layui-btn" onclick="x_admin_show('下载页面','/lammy/work/gauging/gauging-download.html',400,400)" id="download"><i class="layui-icon">&#xe601;</i>Excle导出</button>
+        <button class="layui-btn" onclick="javascript:location.href='/work/reagent/download'"><i class="layui-icon">&#xe601;</i>Excle导出</button>
       </div>
       
-      <table class="layui-hide" id="gauging" lay-filter="gauging"></table>
+      <table class="layui-hide" id="reagent" lay-filter="reagent"></table>
       
         <div class="td-manage" id="bar">
+        	  <a title="库存操作" lay-event="storage"   href="javascript:;">
+                <i class="layui-icon">&#xe6b2;</i>
+              </a>
               <a title="编辑" lay-event="edit"   href="javascript:;">
                 <i class="layui-icon">&#xe63c;</i>
               </a>
@@ -79,58 +69,35 @@
     <script type="text/javascript" src="/lib/layui/layui.js" ></script>
     <script type="text/javascript" src="/js/xadmin.js"></script>
     <script type="text/javascript" src="/js/session.js"></script>
+    <script type="text/javascript" src="/js/vue.min.js"></script>
     <script type="text/javascript">
+	    var reagentType = new Vue({
+			el: '#reagentType',
+			data: {
+				reagentTypes: []
+			}
+		})
+	    $.ajax({
+			url : '/dict/type/reagent_type',
+			async : false,
+			success : function(res){
+				if(res.code == 0){
+					reagentType.reagentTypes = res.data
+				}
+			}
+		})
       layui.use(['laydate','table','form','upload'], function(){
-        var laydate = layui.laydate;
         var table = layui.table;
         var form = layui.form;
-        var upload = layui.upload;
-      	//年选择器
-        laydate.render({
-          elem: '#year'
-          ,type: 'year'
-        });
-        //年月选择器
-        laydate.render({
-          elem: '#month'
-          ,type: 'month'
-        });
-        laydate.render({
-            elem: '#gaugingDate'
-          });
         var index ;
-       //上传
-        upload.render({
-          elem: '#upload'
-          ,url: '/work/gauging/upload'
-          ,accept: 'file' //普通文件
-       	  ,before: function(obj){
-       		index = layer.load(1, {shade: false}); //0代表加载的风格，支持0-2
-       	    }
-          ,done: function(res){
-        	  if(res.code==0){
-        		  layer.close(index);
-        		  layer.msg('导入数据完成,共导入'+res.data+'条数据！',function(){
-            		  location.reload();
-        		  });
-        	  }
-          },error: function(){
-        	  layer.close(index);
-          }
-        });
        
-       //下载
-       //$('#download').on('click',function(){
-    	   
-    	   //location.href = '/work/gauging/download';
-       //})
-        initTable(table,'/work/gauging');
+        initTable(table,'/work/reagent');
       	//监听工具条
-        table.on('tool(gauging)', function(obj){
+        table.on('tool(reagent)', function(obj){
           var data = obj.data;
           if(obj.event === 'del'){
-              layer.confirm('真的删除么  ╮(︶﹏︶)╭', function(index){
-            	  $.axdelete('/work/gauging/'+data.id,null,function(result){
+              layer.confirm('真的删除么  ╮(︶﹏︶)╭，删除后该试剂的库存操作信息也会被全部删除，请谨慎操作！！！', function(index){
+            	  $.axdelete('/work/reagent/'+data.id,null,function(result){
             		  if(result.code==0){
             			  obj.del();
         	              layer.msg('已删除!',{icon:1,time:1000});
@@ -141,26 +108,28 @@
             	  })
               });
           } else if(obj.event === 'edit'){
-        	  x_admin_show('检测管理编辑','/lammy/work/gauging/gauging-edit.html?id='+data.id);
-          }
+        	  x_admin_show('实验试剂信息编辑','/lammy/work/reagent/reagent-edit.html?id='+data.id);
+          } else if(obj.event === 'storage'){
+        	  x_admin_show('实验试剂库存操作','/lammy/work/reagent/reagent-stock-edit.html?id='+data.id);
+          } 
         });
       	
       	//监听搜索
         form.on('submit(search)', function(data){
-        	initTable(table,'/work/gauging',data.field);
+        	initTable(table,'/work/reagent',data.field);
         	return false; //阻止表单跳转。如果需要表单跳转，去掉这段即可。
         });
       	
       	$('#removeAll').on('click',function(){
-      		var checkStatus = table.checkStatus('gauging');
+      		var checkStatus = table.checkStatus('reagent');
             var data = checkStatus.data;
             if(data.length>0){
             	var ids = [];
             	$.each(data,function(index,value){
             	     ids.push(value.id);
             	});
-            	layer.confirm('真的删除么  ╮(︶﹏︶)╭', function(index){
-                	  $.axpost('/work/gauging/delete/batch',{'ids':ids.join(',')},function(result){
+            	layer.confirm('真的删除么  ╮(︶﹏︶)╭，删除后该试剂的库存操作信息也会被全部删除，请谨慎操作！！！', function(index){
+                	  $.axpost('/work/reagent/delete/batch',{'ids':ids.join(',')},function(result){
                 		  if(result.code==0){
             	              layer.msg('已删除!',{icon:1,time:1000});
                 		  }else{
@@ -175,37 +144,17 @@
       	
       	function initTable(table,url,where){
       		table.render({
-                elem: '#gauging',
+                elem: '#reagent',
                 url: url,
                 where : where,
                 cols: [[
                   {type:'checkbox'},
-                  {field:'gaugingNo',width:110,align:'center',title: '检测编号',sort: true},
-                  {field:'sampleName',width:200,align:'center',title: '样品名称'},
-                  {field:'sendPerson',minWidth:100,align:'center',title: '送样人'},
-                  {field:'gaugingDate',width:110,align:'center',title: '送样日期',sort: true},
-                  {field:'sio2',width:80,align:'center',title: 'SiO2'},
-                  {field:'fe2o3',width:80,align:'center',title: 'Fe2O3'},
-                  {field:'al2o3',width:80,align:'center',title: 'Al2O3'},
-                  {field:'cao',width:80,align:'center',title: 'CaO'},
-                  {field:'mgo',width:80,align:'center',title: 'MgO'},
-                  {field:'cd',width:80,align:'center',title: 'Cd'},
-                  {field:'pb',width:80,align:'center',title: 'Pb'},
-                  {field:'h2o',width:80,align:'center',title: 'H2O'},
-                  {field:'xrd',width:80,align:'center',title: 'XRD'},
-                  {field:'ssa',width:80,align:'center',title: '比表面'},
-                  {field:'ph',width:80,align:'center',title: 'pH'},
-                  {field:'minusTwoμm',width:80,align:'center',title: '-2μm'},
-                  {field:'whiteness',width:80,align:'center',title: '白度'},
-                  {field:'il',width:80,align:'center',title: 'IL'},
-                  {field:'suspensibility',width:110,align:'center',title: '悬浮度/mL'},
-                  {field:'adsorbed',width:110,align:'center',title: '胶质价ml/15g'},
-                  {field:'bentonites',width:110,align:'center',title: '膨胀容ml/g'},
-                  {field:'viscosity',width:80,align:'center',title: '粘度'},
-                  {field:'methyleneBlue',width:80,align:'center',title: '吸蓝量'},
-                  {field:'oilAbsorption',width:110,align:'center',title: '吸油量g/100g'},
-                  {field:'remark',width:150,align:'center',title: '备注'},
-                  {title: '操作',width:100, align:'center', toolbar: '#bar',fixed: 'right'}
+                  {field:'reagentName',minWidth:100,align:'center',title: '试剂名称'},
+                  {field:'standard',width:120,align:'center',title: '规格'},
+                  {field:'type',width:200,align:'center',title: '类型'},
+                  {field:'stock',width:100,align:'center',title: '库存数量'},
+                  {field:'unit',width:80,align:'center',title: '数量单位'},
+                  {title: '操作',width:130, align:'center', toolbar: '#bar',fixed: 'right'}
                 ]],
                 page: true
              });

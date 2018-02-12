@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.peng.lammy.dao.DictionaryDao">
+
+	<select id="listDictionary" resultType="com.peng.lammy.domain.vo.DictionaryVo" parameterType="java.lang.String">
+SELECT
+	a.ID,
+	a.DICT_CODE,
+	a.DICT_NAME,
+	a.DICT_TYPE,
+	a.DICT_AUTH,
+	b.TYPE_NAME
+FROM
+	LAMMY_DICTIONARY a,
+	LAMMY_DICTIONARY_TYPE b
+WHERE
+	a.DICT_TYPE = b.TYPE_CODE
+	AND a.IS_DELETE = 0
+<if test="dictType!=null and dictType!=''">
+AND a.DICT_TYPE = #{dictType}
+</if>
+	</select>
+	
+	<insert id="insert" parameterType="com.peng.lammy.domain.po.Dictionary">
+INSERT INTO LAMMY_DICTIONARY(DICT_CODE,DICT_NAME,DICT_TYPE,DICT_AUTH,CREATED_TIME,UPDATE_TIME,IS_DELETE)
+VALUES(#{dictCode},#{dictName},#{dictType},#{dictAuth},#{createdTime},#{updateTime},0)	
+	</insert>
+	
+	<update id="update" parameterType="com.peng.lammy.domain.po.Dictionary">
+UPDATE LAMMY_DICTIONARY SET DICT_NAME = #{dictName},UPDATE_TIME= #{updateTime} WHERE ID=#{id}
+	</update>
+	
+</mapper>

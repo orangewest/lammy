@@ -14,7 +14,8 @@ public class Reagent {
 	private String standard;// 规格
 	private String type;// 类型
 	private Integer stock;// 库存数量
+	private String unit;// 库存单位
 	private String createdTime;
 	private String updateTime;
-	private String isDelete;
+	private Integer isDelete;
 }
