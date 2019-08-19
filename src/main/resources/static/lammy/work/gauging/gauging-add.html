@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html>
+  
+  <head>
+    <meta charset="UTF-8">
+    <title>检测管理列表</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width,user-scalable=yes, minimum-scale=0.4, initial-scale=0.8" />
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
+    <link rel="stylesheet" href="/css/font.css">
+    <link rel="stylesheet" href="/css/xadmin.css">
+    <!-- 让IE8/9支持媒体查询，从而兼容栅格 -->
+    <!--[if lt IE 9]>
+      <script src="https://cdn.staticfile.org/html5shiv/r29/html5.min.js"></script>
+      <script src="https://cdn.staticfile.org/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+  </head>
+  
+  <body>
+    <div class="x-body">
+        <form class="layui-form layui-form-pane">
+        	<div class="layui-tab">
+			  <ul class="layui-tab-title">
+			    <li class="layui-this">基本信息</li>
+			    <li>检测信息</li>
+			  </ul>
+			  <div class="layui-tab-content">
+			    <div class="layui-tab-item layui-show">
+			     	<div class="layui-form-item">
+	                    <label for="name" class="layui-form-label">检测编号</label>
+	                    <div class="layui-input-inline">
+	      					<input type="text" id="gaugingNo" name="gaugingNo" autocomplete="off" placeholder="请输入检测编号" class="layui-input" lay-verify="required">
+	    				</div>
+	    				<div class="layui-input-inline" id="tip">
+	    					<input type="checkbox"   name="sysProduct" lay-skin="primary" title="系统生成" lay-filter="sysProduct">
+	    				</div>
+                	</div>
+                	<div class="layui-form-item">
+	                    <label for="name" class="layui-form-label">样品名称</label>
+	                    <div class="layui-input-block">
+	      					<input type="text" name="sampleName" autocomplete="off" placeholder="请输入样品名称" class="layui-input" lay-verify="required">
+	    				</div>
+                	</div>
+                	<div class="layui-form-item">
+	                    <label for="name" class="layui-form-label">送样人</label>
+	                    <div class="layui-input-inline">
+	      					<input type="text" name="sendPerson" autocomplete="off" placeholder="请输入送样人姓名" class="layui-input" lay-verify="required">
+	    				</div>
+                	</div>
+                	<div class="layui-form-item">
+	                    <label for="name" class="layui-form-label">送样日期</label>
+	                    <div class="layui-inline">
+	      					<input type="text" id="gaugingDate" name="gaugingDate" autocomplete="off" placeholder="请输入送样日期" class="layui-input" lay-verify="required">
+	    				</div>
+                	</div>
+                	<div class="layui-form-item layui-form-text">
+	                    <label for="name" class="layui-form-label">备注</label>
+	                    <div class="layui-input-block">
+	      					<textarea placeholder="请输入备注内容" class="layui-textarea" name="remark"></textarea>
+	    				</div>
+                	</div>
+			    </div>
+			    <div class="layui-tab-item">
+			    	<div class="layui-form-item">
+			    		<div class="layui-inline">
+		                    <label for="name" class="layui-form-label">SiO<span class="x-sub">2</span></label>
+		                    <div class="layui-input-inline">
+		      					<input type="text" name="sio2" class="layui-input" >
+		    				</div>
+                		</div>
+                		<div class="layui-inline">
+		                    <label for="name" class="layui-form-label">Fe<span class="x-sub">2</span>O<span class="x-sub">3</span></label>
+		                    <div class="layui-input-inline">
+		      					<input type="text" name="fe2o3" class="layui-input" >
+		    				</div>
+                		</div>
+                	</div>
+                	<div class="layui-form-item">
+			    		<div class="layui-inline">
+		                    <label for="name" class="layui-form-label">Al<span class="x-sub">2</span>O<span class="x-sub">3</span></label>
+		                    <div class="layui-input-inline">
+		      					<input type="text" name="al2o3" class="layui-input" >
+		    				</div>
+                		</div>
+                		<div class="layui-inline">
+		                    <label for="name" class="layui-form-label">CaO</label>
+		                    <div class="layui-input-inline">
+		      					<input type="text" name="cao"  class="layui-input" >
+		    				</div>
+                		</div>
+                	</div>
+                	<div class="layui-form-item">
+			    		<div class="layui-inline">
+		                    <label for="name" class="layui-form-label">MgO</label>
+		                    <div class="layui-input-inline">
+		      					<input type="text" name="mgo"  class="layui-input" >
+		    				</div>
+                		</div>
+                		<div class="layui-inline">
+		                    <label for="name" class="layui-form-label">Cd</label>
+		                    <div class="layui-input-inline">
+		      					<input type="text" name="cd" class="layui-input" >
+		    				</div>
+                		</div>
+                	</div>
+                	<div class="layui-form-item">
+			    		<div class="layui-inline">
+		                    <label for="name" class="layui-form-label">Pb</label>
+		                    <div class="layui-input-inline">
+		      					<input type="text" name="pb"  class="layui-input" >
+		    				</div>
+                		</div>
+                		<div class="layui-inline">
+		                    <label for="name" class="layui-form-label">H<span class="x-sub">2</span>O</label>
+		                    <div class="layui-input-inline">
+		      					<input type="text" name="h2o"  class="layui-input" >
+		    				</div>
+                		</div>
+                	</div>
+                	<div class="layui-form-item">
+			    		<div class="layui-inline">
+		                    <label for="name" class="layui-form-label">XRD</label>
+		                    <div class="layui-input-inline">
+		      					<input type="text" name="xrd"  class="layui-input">
+		    				</div>
+                		</div>
+                		<div class="layui-inline">
+		                    <label for="name" class="layui-form-label">比表面</label>
+		                    <div class="layui-input-inline">
+		      					<input type="text" name="ssa" class="layui-input" >
+		    				</div>
+                		</div>
+                	</div>
+                	<div class="layui-form-item">
+			    		<div class="layui-inline">
+		                    <label for="name" class="layui-form-label">pH</label>
+		                    <div class="layui-input-inline">
+		      					<input type="text" name="ph" class="layui-input" >
+		    				</div>
+                		</div>
+                		<div class="layui-inline">
+		                    <label for="name" class="layui-form-label">-2μm</label>
+		                    <div class="layui-input-inline">
+		      					<input type="text" name="minusTwoμm" class="layui-input">
+		    				</div>
+                		</div>
+                	</div>
+                	<div class="layui-form-item">
+			    		<div class="layui-inline">
+		                    <label for="name" class="layui-form-label">白度</label>
+		                    <div class="layui-input-inline">
+		      					<input type="text" name="whiteness" class="layui-input" >
+		    				</div>
+                		</div>
+                		<div class="layui-inline">
+		                    <label for="name" class="layui-form-label">IL</label>
+		                    <div class="layui-input-inline">
+		      					<input type="text" name="il"  class="layui-input" >
+		    				</div>
+                		</div>
+                	</div>
+                	<div class="layui-form-item">
+			    		<div class="layui-inline">
+		                    <label for="name" class="layui-form-label">悬浮度/mL</label>
+		                    <div class="layui-input-inline">
+		      					<input type="text" name="suspensibility"  class="layui-input" >
+		    				</div>
+                		</div>
+                		<div class="layui-inline">
+		                    <label for="name" class="layui-form-label">胶质价ml/15g</label>
+		                    <div class="layui-input-inline">
+		      					<input type="text" name="adsorbed"  class="layui-input">
+		    				</div>
+                		</div>
+                	</div>
+                	<div class="layui-form-item">
+			    		<div class="layui-inline">
+		                    <label for="name" class="layui-form-label">膨胀容ml/g</label>
+		                    <div class="layui-input-inline">
+		      					<input type="text" name="bentonites"  class="layui-input" >
+		    				</div>
+                		</div>
+                		<div class="layui-inline">
+		                    <label for="name" class="layui-form-label">粘度</label>
+		                    <div class="layui-input-inline">
+		      					<input type="text" name="viscosity" class="layui-input" >
+		    				</div>
+                		</div>
+                	</div>
+                	<div class="layui-form-item">
+			    		<div class="layui-inline">
+		                    <label for="name" class="layui-form-label">吸蓝量</label>
+		                    <div class="layui-input-inline">
+		      					<input type="text" name="methyleneBlue"  class="layui-input" >
+		    				</div>
+                		</div>
+                		<div class="layui-inline">
+		                    <label for="name" class="layui-form-label">吸油量g/100g</label>
+		                    <div class="layui-input-inline">
+		      					<input type="text" name="oilAbsorption" class="layui-input">
+		    				</div>
+                		</div>
+                	</div>
+                	<div class="layui-form-item">
+                		<button class="layui-btn" lay-submit="" lay-filter="add">添加</button>
+              		</div>
+			    </div>
+			  </div>
+			  </div>
+            </form>
+    </div>
+    <script type="text/javascript" src="/js/jquery-3.3.1.min.js"></script>
+    <script type="text/javascript" src="/lib/layui/layui.js" ></script>
+    <script type="text/javascript" src="/js/xadmin.js"></script>
+    <script type="text/javascript" src="/js/session.js"></script>
+    <script>
+        layui.use(['form','layer','laydate'], function(){
+          var form = layui.form;
+          var layer = layui.layer;
+          var laydate = layui.laydate;
+          
+          laydate.render({
+        	    elem: '#gaugingDate', //指定元素
+        	    trigger: 'click'
+          });
+          $('#tip').on('mouseenter',function(){
+        	  layer.tips('系统获取数据库中最大编号+1，然后生成新的编号','#tip',{
+        		  tips: [2, '#78BA32']
+        	  });
+          })
+          //编号检测
+          $('#gaugingNo').on('blur',function(){
+        	  var gaugingNo = $('#gaugingNo').val();
+        	  if(isNotEmpty(gaugingNo)){
+        		  var reg = /^[W,w]\d+$/;
+        		  if(reg.test(gaugingNo)){
+        			  $.axget('/work/gauging/hasSameNo/'+gaugingNo,null,function(result){
+            	          	if(result.code==0){
+            	          		if(result.data==true){
+            	          			layer.msg("检测编号重复");
+            	          			$('#gaugingNo').focus();
+            	          		}
+            	          	}else{
+            	          		layer.msg(result.msg);
+            	          	}
+                  	  }) 
+        		  }else{
+        			  layer.msg("检测编号格式不正确，正确格式应为：W+数字（如：W1234）");
+	          		  $('#gaugingNo').focus();
+        		  }
+        	  }
+          })
+          
+          
+          //系统编号生成
+          form.on('checkbox(sysProduct)', function(data){
+			  if(data.elem.checked===true){
+        		  $.axget('/work/gauging/sysProductNo',null,function(result){
+      	          	if(result.code==0){
+      	          		if(isEmpty(result.data)){
+      	          		    layer.msg("系统数据库中暂无编号，请先手动生成编号！");
+      	          		}
+      	          		$('#gaugingNo').val(result.data);
+      	          	}else{
+      	          		layer.msg(result.msg);
+      	          	}
+            	  })
+        	  }
+		  });  
+          
+          //监听提交
+          form.on('submit(add)', function(data){
+            console.log(JSON.stringify(data.field));
+            $.axpost('/work/gauging',data.field,function(result){
+            	if(result.code==0){
+            		layer.alert("增加成功", {icon: 6},function () {
+            			window.parent.location.reload();
+            			x_admin_close();
+                    });
+            	}else{
+            		layer.msg(result.msg);
+            	}
+        	})
+            return false;
+          });
+        });
+    </script>
+  </body>
+
+</html>

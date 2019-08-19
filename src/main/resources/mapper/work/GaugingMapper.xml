@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.peng.lammy.dao.work.GaugingDao">
+
+	<!-- 新增 -->
+	<insert id="insert" parameterType="com.peng.lammy.domain.po.work.Gauging">
+INSERT INTO LAMMY_GAUGING(SEND_PERSON,SAMPLE_NAME,GAUGING_NO,GAUGING_NO_ORDER,GAUGING_DATE,REMARK,SIO2,FE2O3,AL2O3,CAO,MGO,CD,PB,H2O,XRD,SSA,PH,MINUS_TWOΜM,WHITENESS,IL,SUSPENSIBILITY,ADSORBED,BENTONITES,VISCOSITY,METHYLENE_BLUE,OIL_ABSORPTION,CREATED_TIME,UPDATE_TIME,IS_DELETE)
+values(#{sendPerson},#{sampleName},#{gaugingNo},#{gaugingNoOrder},#{gaugingDate},#{remark},#{sio2},#{fe2o3},#{al2o3},#{cao},#{mgo},#{cd},#{pb},#{h2o},#{xrd},#{ssa},#{ph},#{minusTwoμm},#{whiteness},#{il},#{suspensibility},#{adsorbed},#{bentonites},#{viscosity},#{methyleneBlue},#{oilAbsorption},#{createdTime},#{updateTime},0)
+	</insert>
+	
+	<!-- 根据编号查询是否有相同编号 -->
+	<select id="countGaugingByNo" resultType="int">
+SELECT COUNT(*) FROM LAMMY_GAUGING WHERE GAUGING_NO = #{gaugingNo}
+	</select>
+	
+	<!-- 查询系统最大编号 -->
+	<select id="getMaxGaugingNo" resultType="java.lang.String">
+SELECT GAUGING_NO FROM LAMMY_GAUGING WHERE IS_DELETE = 0 ORDER BY GAUGING_NO_ORDER DESC LIMIT 1	
+	</select>
+	
+	<!-- 查询检测列表 -->
+	<select id="listGauging" resultType="com.peng.lammy.domain.po.work.Gauging">
+SELECT * FROM LAMMY_GAUGING WHERE IS_DELETE = 0 
+<if test="gaugingNo!=null and gaugingNo!=''">
+AND GAUGING_NO LIKE #{gaugingNo}
+</if>
+<if test="sendPerson!=null and sendPerson!=''">
+AND SEND_PERSON LIKE #{sendPerson}
+</if>
+<if test="sampleName!=null and sampleName!=''">
+AND SAMPLE_NAME LIKE #{sampleName}
+</if>
+<if test="gaugingDate!=null and gaugingDate!=''">
+AND GAUGING_DATE LIKE #{gaugingDate}
+</if>
+ORDER BY GAUGING_DATE DESC,GAUGING_NO_ORDER DESC
+	</select>
+	
+	<!-- 根据id查询 -->
+	<select id="getGaugingById" resultType="com.peng.lammy.domain.po.work.Gauging">
+SELECT * FROM LAMMY_GAUGING WHERE ID = #{id} LIMIT 1	
+	</select>
+	
+	<!-- 更新 -->
+	<update id="update" parameterType="com.peng.lammy.domain.po.work.Gauging">
+UPDATE LAMMY_GAUGING SET SEND_PERSON = #{sendPerson},SAMPLE_NAME = #{sampleName},GAUGING_NO = #{gaugingNo},GAUGING_DATE = #{gaugingDate},REMARK = #{remark},SIO2 = #{SiO2},FE2O3 = #{Fe2O3},AL2O3 = #{Al2O3},CAO = #{CaO},MGO = #{MgO},CD = #{Cd},PB = #{Pb},H2O = #{H2O},XRD = #{XRD},SSA = #{SSA},PH = #{pH},MINUS_TWOΜM = #{minusTwoμm},WHITENESS = #{whiteness},IL = #{IL},SUSPENSIBILITY = #{suspensibility},ADSORBED = #{adsorbed},BENTONITES = #{bentonites},VISCOSITY = #{viscosity},METHYLENE_BLUE = #{methyleneBlue},OIL_ABSORPTION = #{oilAbsorption},UPDATE_TIME = #{updateTime}
+WHERE ID = #{id}	
+	</update>
+	
+	<!-- 删除 -->
+	<delete id="deleteById">
+UPDATE LAMMY_GAUGING SET IS_DELETE = 1 WHERE ID = #{id}	
+	</delete>
+</mapper>
